@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>DCME</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- basic styles -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+	<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+	<!-- page specific plugin styles -->
+	<!-- fonts -->
+	<!-- ace styles -->
+	<link rel="stylesheet" href="assets/css/ace.min.css" />
+	<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+	<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+	<!-- inline styles related to this page -->
+	<!-- ace settings handler -->
+	<script src="assets/js/ace-extra.min.js"></script>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+</head>
+<style>
+	.sidebar:before {
+		width: 270px;
+	}
+
+	.sidebar {
+		width: 270px;
+	}
+
+	.main-content {
+		margin-left: 270px;
+	}
+
+	.navbar {
+		min-height: 48px;
+	}
+
+	.navbar .navbar-brand {
+		font-size: 30px;
+	}
+
+	.sidebar-shortcuts-large>.btn {
+		margin-right: 12px;
+		width: 45px;
+	}
+</style>
+
+<body>
+	<div class="navbar navbar-default" id="navbar">
+		<script type="text/javascript">
+			try {
+				ace.settings.check('navbar', 'fixed')
+			} catch (e) { }
+		</script>
+		<div class="navbar-container" id="navbar-container">
+			<div class="navbar-header pull-left">
+				<a href="#" class="navbar-brand">
+					<small>
+						<i class="icon-leaf"></i>
+						DCEM: Service Computing Evolution System
+					</small>
+				</a><!-- /.brand -->
+			</div><!-- /.navbar-header -->
+			</ul><!-- /.ace-nav -->
+		</div><!-- /.navbar-header -->
+	</div><!-- /.container -->
+	</div>
+	<div class="main-container-inner">
+		<a class="menu-toggler" id="menu-toggler" href="#">
+			<span class="menu-text"></span>
+		</a>
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+				<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+					<button class="btn btn-success">
+						<i class="icon-signal"></i>
+					</button>
+					<button class="btn btn-info">
+						<i class="icon-pencil"></i>
+					</button>
+					<button class="btn btn-warning">
+						<i class="icon-group"></i>
+					</button>
+					<button class="btn btn-danger" style=" margin-right: 2px; ">
+						<i class="icon-cogs"></i>
+					</button>
+				</div>
+				<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+					<span class="btn btn-success"></span>
+					<span class="btn btn-info"></span>
+					<span class="btn btn-warning"></span>
+					<span class="btn btn-danger"></span>
+				</div>
+			</div><!-- #sidebar-shortcuts -->
+			<ul class="nav nav-list">
+				<!-- <li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-desktop"></i>
+						<span class="menu-text"> 服务信息 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="Service.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞信息 </span>
+							</a>
+						</li>
+						<li>
+							<a href="DCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞簇信息 </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-edit"></i>
+						<span class="menu-text"> 服务建模 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="buildDC.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞建模 </span>
+							</a>
+						</li>
+						<li>
+							<a href="buildDCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞簇建模 </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-list"></i>
+						<span class="menu-text"> 动态行为分析 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="devour.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 吞噬行为记录 </span>
+							</a>
+						</li>
+						<li>
+							<a href="cure.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 治愈行为记录 </span>
+							</a>
+						</li>
+					</ul>
+				</li> -->
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-desktop"></i>
+						<span class="menu-text"> Service Information </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="Service.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> Service Information Display  </span>
+							</a>
+						</li>
+						<!-- <li>
+							<a href="DCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞簇信息 </span>
+							</a>
+						</li> -->
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-edit"></i>
+						<span class="menu-text"> Service Cell Modeling </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<!-- <li>
+							<a href="buildDC.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞建模 </span>
+							</a>
+						</li> -->
+						<li>
+							<a href="buildDCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> Service Modeling </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="active">
+					<a href="test.html">
+						<i class="icon-double-angle-right"></i>
+						<span class="menu-text"> Data Cell Modeling </span>
+					</a>
+				</li>
+			</ul><!-- /.nav-list -->
+			<div class="sidebar-collapse" id="sidebar-collapse">
+				<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+			</div>
+			<script type="text/javascript">
+				try {
+					ace.settings.check('sidebar', 'collapsed')
+				} catch (e) { }
+			</script>
+		</div>
+		<div class="main-content">
+
+			<div class="page-content" style="height: 999px">
+				<!-- <div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-12">
+								<h3 class="header smaller lighter blue">偶图显示</h3>
+								<div>
+									<div id="textDiv"></div>
+									<div id="description"></div>
+									<div id="my-canves"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col-sm-7">
+						<div class="btn-toolbar row" style="margin: 10px 0;font-size: 20px;color:rgb(4, 161, 4);">
+							Data Clusters Modeling
+						</div>
+					  <div class="widget-box">
+						<div class="widget-header">
+						  <h4>Display of the Data Clusters</h4>
+						</div>
+						<div class="widget-body">
+						  <div id="data-clusters" class="widget-main" style="height: 200px;word-wrap:break-word;word-break:break-all;">
+						  </div>
+						</div>
+					  </div>
+					  <div class="row" style="margin:10px 0px; border:1px solid #c5d0dc; height:420px; ">
+						<div class="widget-header">
+						  <h4>Display of the Bigraph</h4>
+						</div>
+						<div style="position: relative;left: -20px;top: -80px;">
+						  <div id="my-canves"></div>
+						</div>
+					  </div>
+					  <div class="row" style="margin:10px 0px; border:1px solid #c5d0dc; height:200px; ">
+						<div class="widget-header">
+						  <h4>Display of the term language</h4>
+						</div>
+						<div>
+						  <div id="term-language"></div>
+						</div>
+					  </div>
+					</div><!-- /span -->
+					<div class="col-sm-5">
+					  <div style="z-index:10;height:41px;width:700px;position: absolute;background-color: white;"></div>
+					  <div class="row" style="margin:40px 0px; border:1px solid #c5d0dc; height:843px; ">
+						<div class="widget-header">
+						  <h4>DisPlay Xml structure of the Bigraph</h4>
+						</div>
+						<div>
+						  <iframe style="height:843px; width:100%;margin-top: -85px;" id="showXMLiframe" src="" frameborder="0"></iframe>
+						</div>
+					  </div>
+					</div>
+				  </div><!-- /.row -->
+			</div><!-- /.page-content -->
+		</div><!-- /.main-content -->
+	</div><!-- /.main-container -->
+	<!-- basic scripts -->
+	<!--[if !IE]> -->
+	<script src="bootstrap/js/jquery-3.3.1.min.js"></script>
+	<!-- <![endif]-->
+	<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+	<!--[if !IE]> -->
+	<!-- <![endif]-->
+	<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+	<script type="text/javascript">
+		if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" +
+			"/script>");
+	</script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/typeahead-bs2.min.js"></script>
+	<!-- page specific plugin scripts -->
+	<!-- 这是我注释掉的
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+-->
+	<!-- ace scripts -->
+	<script src="assets/js/ace-elements.min.js"></script>
+	<script src="assets/js/ace.min.js"></script>
+	<!-- inline scripts related to this page -->
+	<script src="./FileSaver.js"></script>
+	<script type="text/javascript">
+		//	jQuery(function($) {
+		//	var oTable1 = $('#sample-table-2').dataTable( {
+		//	"aoColumns": [
+		//     { "bSortable": false },
+		//      null, null,null, null, null,
+		//	  { "bSortable": false }
+		//	] } );
+		$('table th input:checkbox').on('click', function () {
+			var that = this;
+			$(this).closest('table').find('tr > td:first-child input:checkbox')
+				.each(function () {
+					this.checked = that.checked;
+					$(this).closest('tr').toggleClass('selected');
+				});
+		});
+		$('[data-rel="tooltip"]').tooltip({
+			placement: tooltip_placement
+		});
+
+		function tooltip_placement(context, source) {
+			var $source = $(source);
+			var $parent = $source.closest('table')
+			var off1 = $parent.offset();
+			var w1 = $parent.width();
+			var off2 = $source.offset();
+			var w2 = $source.width();
+			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+			return 'left';
+		}
+	</script>
+	<div style="display:none">
+		<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+	</div>
+	<script type="text/javascript" src="raphael.js"></script>
+	<script src="./xml2json.js"></script>
+	<script type="text/javascript">
+
+		var searchURL = window.location.search;
+		var searchMap = {};
+		searchURL = searchURL.substring(1, searchURL.length);
+		searchURL.split("&").forEach(element => {
+			searchMap[element.split("=")[0]] = element.split("=")[1]
+		})
+		console.log(searchMap);
+
+		if (searchMap['id']) {
+			$.ajax({
+				url: "api/v1/bigraph",
+				type: "GET",
+				data: {
+					id: searchMap['id']
+				},
+				success: function(data) {
+					if (data.success && data.data) {
+						$("#data-clusters").empty();
+						$('#data-clusters').append(data.data.graph.dataClusters);
+						$("#term-language").empty();
+						$('#term-language').append(data.data.graph.termLanguage);
+					}
+				}
+			})
+			$("#showXMLiframe").attr("src", "api/v1/bigraph/xml?id=" + searchMap['id']);
+		} else {
+			// alert("can't find id in url!");
+		}
+      	
+
+		//解析XML文件；
+		//端口属性
+		function Port() {
+			//端口ID，名称，类型，控制属性（输入(黄)，输出（绿），输入/输出（红））
+			var pI;
+			var pN;
+			var pT;
+			var pC;
+			var innername;
+			var outername;
+		}
+		//服务
+		function Service() {
+			var name;
+			//内部站点
+			var site;
+			var sitename;
+			//子节点数目
+			var inserve;
+			//父节点
+			var fatherNode;
+			//端口数量
+			var port_number;
+			//端口属性
+			var p;
+			//控制属性；
+			var CN;
+			var CT;
+			var U;
+			var DL;
+			var CN;
+			//位置属性
+			var root_number; //站点号
+		}
+		//站点；
+		function Root() {
+			var osite;
+			var ositename;
+			var s_number; //总服务数量
+			var Nofacir; //最外圈的服务
+		}
+		//边连接
+		function EdgeLink() {
+			var start;
+			var end;
+		}
+		//连接图
+		//function LinkGraph(){var edgelink = new EdgeLink();var innername,outername;}
+		//位置图；
+		//function PlaceGraph(){var root = new Root() ;var site;}
+		//数据细胞；
+		function DC() {
+			var S_N; //服务数量；
+			var E_N; //边数量；
+			var RootNumber; //区域数量;
+			var sitenumber; //站点数量
+		}
+
+		function circle() {
+			var Id;
+			//坐标，半径
+			var x;
+			var y;
+			var r;
+			//端口坐标
+			var pointX;
+			var pointY;
+		}
+
+		function sitepoint() {
+			var X;
+			var Y;
+			var sp;
+		}
+
+		function get_num(str) {
+			var num = "";
+			for (var k = 0; k < str.length; k++) {
+				if (str[k] >= '0' && str[k] <= '9') {
+					num += str[k];
+				}
+			}
+			return num;
+		}
+		//断点
+		function get_point(str) {
+			for (var j = 0; j < str.length; j++) {
+				if (str[j] == '.') {
+					return j;
+				}
+			}
+		}
+		//得到服务号
+		function getservice(str) {
+			var x = get_point(str);
+			var a = "";
+			for (var j = 0; j < str.length; j++) {
+				if (j < x) {
+					a = a + str[j];
+				}
+			}
+			a = get_num(a);
+			return a;
+		}
+		//获得端口号
+		function getport(str) {
+			var x = get_point(str);
+			var b = "";
+			for (var j = 0; j < str.length; j++) {
+				if (j > x) {
+					b = b + str[j];
+				}
+			}
+			b = get_num(b);
+			return b;
+		}
+		var xmlhttp = new XMLHttpRequest();
+		//设置和获取href属性中跟在问号后面的值
+		var category = window.location.search;
+		//截取，获取获得category的具体值
+		// var cateval = category.substring(category.lastIndexOf('=') + 1, category.length);
+		var cateval = "api/v1/bigraph/xml?id=" + searchMap['id'];
+		//alert(cateval);
+		//xmlhttp.open("GET","DCCs/DataCell.xml",false);  
+		//xmlhttp.open("GET","DCCs/DateCell1.xml",false);  
+		xmlhttp.open("GET", cateval, false);
+		// var div = document.getElementById("textDiv");
+		var doc = "";
+		var filename = "";
+		var fanxie = false;
+		// for (var i = 0; i < cateval.length; i++) {
+		// 	if (cateval[i] == "/") {
+		// 		fanxie = true;
+		// 		continue;
+		// 	}
+		// 	if (fanxie == false) {
+		// 		doc += cateval[i];
+		// 	} else {
+		// 		filename += cateval[i];
+		// 	}
+		// }
+		//alert(doc);
+		//alert(filename);
+		var des = new Array();
+		//DCC 描述
+		des[0] =
+			"该数据细胞簇中共有两个数据细胞。分别为DC0，DC1，其中DC0 中包含两个服务，DC1中有一个服务；DC0中s1的输出是s2的输入，构成顺序结构，s2的输出是s3的输入，构成顺序结构；从服务的调用关系来看，DC0和DC1形成顺序调用。";
+		des[1] = "该数据细胞簇中共有两个数据细胞，分别为DC0，DC1，DC0中有两个服务，分别为s1,s2，s1的输入是s2的输出，并且s1服务是s2的后置服务，从而形成循环结构。" +
+			"DC1中有1个服务s3；从服务的调用关系来看DC0、DC1形成顺序调用";
+		des[2] = "该数据细胞簇中共三个数据细胞，分别为DC0~DC2，DC0，DC1，DC2中各有一个服务，从服务的调用关系来看DC0、DC1、DC2形成选择调用";
+		des[3] = "该数据细胞簇中共三个数据细胞，分别为DC0~DC2，DC0，DC2中各有一个服务，DC1中有两个服务，s1的输出为s2,s3的输入。s2,s3的输出为s3的输入" +
+			"从服务的调用关系来看DC0,DC1形成并行结构，DC1,DC2形成顺序结构";
+		des[4] = "该数据细胞簇中共有四个数据细胞，分别为DC0~DC3，其中DC0中包含4个服务，DC1中有一个服务，DC2,、DC3中各有两个服务." +
+			"DC0中的服务s1的输出是s2和s3服务的输入，并且形成并行结构，s4服务的输入是s2、s3的输出，并且s4服务是s2、s3的后置服务，从而形成循环结构；从服务的调用关系来看," +
+			"DC0、DC1和DC2形成顺序调用，而DC2的服务s7与DC3中的s8、s9是并行调用结构。";
+		//DC 描述
+		des[5] = "该数据细胞中共有两个服务，分别为s1,s2,s1中的输出s2中的输入，s1顺序调用s2,形成顺序结构";
+		des[6] = "该数据细胞中共有两个服务，分别为s1,s2，s1的输入是s2的输出，并且s1服务是s2的后置服务，从而形成循环结构。";
+		des[7] = "该数据细胞中只有一个服务，为s1，s1上有2个端口，绿色为输出端口，红色为输入/输出端口";
+		des[8] = "该数据细胞中共有四个服务，分别为s1~s4，服务s1的输出是s2和s3服务的输入，并且形成并行结构，s4服务的输入是s2、s3的输出，并且s4服务是s2、s3的后置服务，";
+		des[9] = "该数据细胞中只有一个服务，为s1.s1上有3个端口，黄色为输入端口，绿色为输出端口并且经过站点1，红色为输入/输出端口，";
+		var special = 0;
+		var div1 = document.getElementById("description");
+		if (doc == "DC") {
+			var i = cateval[cateval.length - 5] - '0';
+			// div.textContent = "数据细胞" + i + " 的偶图结构";
+			// div1.textContent = "偶图的解释：" + des[i + 4];
+		} else {
+			var i = cateval[cateval.length - 5] - '0';
+			i = i + 1;
+			if (i == 5) {
+				special = 1;
+			}
+			// div.textContent = "数据细胞簇" + i + " 的偶图结构";
+			// div1.textContent = "偶图的解释：" + des[i - 1];
+		}
+		// var text = div.textContent;
+		// var text1 = div1.textContent;
+		//xmlhttp.open("GET","DCCs/DataCell3.xml",false);
+		//xmlhttp.open("GET","DCCs/DataCell4.xml",false);  
+		xmlhttp.send();
+		var xmldoc = xmlhttp.responseXML;
+		Datacell = xmldoc.documentElement;
+		//alert("check1");
+		var Dc = new DC();
+		Dc.S_N = Datacell.getElementsByTagName("S")[0].getElementsByTagName("s").length; //服务数量
+		//alert(getservice("s3.port1"));
+		var s = new Array();
+		var cir = new Array();
+		var siteP = new Array();
+		for (var i = 0; i <= Dc.S_N; i++) {
+			cir[i] = new circle();
+			cir[i].pointX = new Array();
+			cir[i].pointY = new Array();
+			s[i] = new Service();
+			s[i].fatherNode = -1;
+			s[i].inserve = 0;
+		}
+		var Ser = Datacell.getElementsByTagName("S");
+		for (var i = 0; i < Dc.S_N; i++) {
+			s[i + 1].name = Ser[0].getElementsByTagName("s")[i].childNodes[0].nodeValue;
+			//alert(s[i+1].name);
+		}
+		Dc.E_N = Datacell.getElementsByTagName("E")[0].getElementsByTagName("e").length; //边
+		//alert(Dc.E_N);
+		//for(var i = 0; i < Dc.E_N; i++)
+		//{
+		//var EG = Edge[0].getElementsByTagName("e")[i].getAttribute("flag");
+		//alert(EG);
+		//}
+		var Ctrl = Datacell.getElementsByTagName("Ctrl"); //控制映射
+		var S = Ctrl[0].getElementsByTagName("s"); //服务
+		//alert("check1");
+		for (var i = 0; i < Dc.S_N; i++) {
+			//alert(S[i].getAttribute("flag"));
+			s[i + 1].p = new Array();
+			var C = S[i].getElementsByTagName("C") //控制集C
+			//C的五元组；
+			s[i + 1].CN = C[0].getElementsByTagName("CN")[0].childNodes[0].nodeValue; //控制名
+			s[i + 1].CT = C[0].getElementsByTagName("CT")[0].childNodes[0].nodeValue; //控制类型
+			//alert(s[i+1].CN);
+			//alert(s[i+1].CT);
+			var C_P = C[0].getElementsByTagName("P"); //端口
+			C_P = C_P[0].getElementsByTagName("p");
+			//alert(C_P.length);
+			s[i + 1].port_number = C_P.length;
+			s[i + 1].p[0] = new Port();
+			for (var j = 1; j <= C_P.length; j++) {
+				s[i + 1].p[j] = new Port(); //端口数量
+				s[i + 1].p[j].pI = C_P[j - 1].getElementsByTagName("pI")[0].childNodes[0].nodeValue; //端口ID
+				s[i + 1].p[j].pN = C_P[j - 1].getElementsByTagName("pN")[0].childNodes[0].nodeValue; //端口名称
+				s[i + 1].p[j].pT = C_P[j - 1].getElementsByTagName("pT")[0].childNodes[0].nodeValue; //端口类型
+				s[i + 1].p[j].pC = C_P[j - 1].getElementsByTagName("pC")[0].childNodes[0].nodeValue; //控制属性（输入(黄)，输出（绿），输入/输出（红））
+				//alert(s[i+1].p[j].pI);
+				//alert(s[i+1].pN);
+				//alert(s[i+1].pT);
+				//alert(s[i+1].p[j].pC);
+			}
+			//alert("check");
+			var C_CL = C[0].getElementsByTagName("CL") //依赖状况
+			s[i + 1].DL = C_CL[0].getElementsByTagName("DL")[0].childNodes[0].nodeValue; //依赖层次
+			// ---------------CN的获取有问题 和上面重复-----------------------------
+			s[i + 1].CN = C_CL[0].getElementsByTagName("CN")[0].childNodes[0].nodeValue; //控制名称
+			//alert(s[i+1].DL);
+			//alert(s[i+1].CN);
+			s[i + 1].U = C[0].getElementsByTagName("U")[0].childNodes[0].nodeValue;
+		}
+		var cP = Datacell.getElementsByTagName("cP"); //位置图
+		var root = new Array();
+		var cP_root = cP[0].getElementsByTagName("root");
+		Dc.RootNumber = cP_root.length;
+		Dc.sitenumber = 0;
+		//alert("check2");
+		for (var i = 0; i < Dc.RootNumber; i++) {
+			root[i] = new Root();
+			root[i].Nofacir = 0;
+			root[i].s_number = cP_root[i].getElementsByTagName("s").length;
+			var osite = cP_root[i].getElementsByTagName("site").length;
+			Dc.sitenumber += osite;
+			//alert(osite);
+			for (var j = 0; j < osite; j++) {
+				//alert(cP_root[i].getElementsByTagName("site")[j].parentNode.getAttribute("flag"));
+				var str = cP_root[i].getElementsByTagName("site")[j].parentNode.getAttribute("flag");
+				var str1 = str[0] + str[1] + str[2] + str[3];
+				if (str1 == "root") {
+					root[i].ositename = cP_root[i].getElementsByTagName("site")[j].childNodes[0].nodeValue;
+					//alert(root[i].ositename );
+				}
+			}
+			for (var j = 0; j < root[i].s_number; j++) {
+				//确定服务在哪个站点;
+				var s_name = cP_root[i].getElementsByTagName("s")[j].getAttribute("flag");
+				//得到服务名;
+				var num = get_num(s_name);
+				//alert(num);
+				s[num].root_number = i;
+				//alert(s[num].root_number);
+				//判断嵌套层数；
+				var count = 1; //嵌套层数; 
+				var floor = "s" + count;
+				//alert(floor);
+				while (cP_root[i].getElementsByTagName("s")[j].getElementsByTagName(floor).length != 0) {
+					count++;
+					//var sname = cP_root[i].getElementsByTagName("s")[j].getElementsByTagName(floor)[0].getAttribute("flag");
+					//alert(sname);
+					floor = "s" + count;
+					//防死循环;
+					if (count > 100) break;
+				}
+				//alert(count);
+				for (var k = 1; k < count; k++) {
+					floor = "s" + k;
+					//alert(floor);
+					var s_X = cP_root[i].getElementsByTagName("s")[j].getElementsByTagName(floor);
+					//alert(s_X.length);
+					for (var u = 0; u < s_X.length; u++) {
+						var cur = s_X[u].getAttribute("flag");
+						var parent = s_X[u].parentNode.getAttribute("flag");
+						//alert(get_num(cur));
+						var a = get_num(cur);
+						var b = get_num(parent);
+						//alert(get_num(parent));
+						s[a].fatherNode = b;
+						s[b].inserve++;;
+						//alert(s[a].fatherNode);
+						//alert(s_X[u].parentNode.getAttribute("flag"));
+					}
+					//alert("check");
+				}
+				//alert("check");
+				//确定是否有内部站点；
+				var isite = cP_root[i].getElementsByTagName("s")[j].getElementsByTagName("site");
+				if (isite.length != 0) {
+					osite = osite - isite.length;
+				}
+				for (var k = 0; k < isite.length; k++) {
+					var a = isite[k].parentNode.getAttribute("flag");
+					var b = get_num(a);
+					s[b].site = true;
+					s[b].sitename = isite[k].childNodes[0].nodeValue;
+					//alert(s[b].sitename);
+					//alert(isite[k].parentNode.getAttribute("flag"));
+				}
+			}
+			if (osite != 0) {
+				root[i].osite = true;
+			}
+		}
+		for (var i = 0; i <= Dc.sitenumber; i++) {
+			siteP[i] = new sitepoint();
+		}
+		//alert("check3");
+		var cL = Datacell.getElementsByTagName("cL"); //连接图
+		var edge = cL[0].getElementsByTagName("edgeLink");
+		var link = new Array();
+		for (var i = 0; i < Dc.E_N; i++) {
+			link[i] = new EdgeLink();
+			link[i].start = edge[i].getElementsByTagName("linkPort")[0].childNodes[0].nodeValue;
+			link[i].end = edge[i].getElementsByTagName("linkPort")[1].childNodes[0].nodeValue;
+			//alert(link[i].start);
+			//alert(link[i].end);
+		}
+		//alert(cL[0].getElementsByTagName("innerName").length);
+		for (var i = 0; i < cL[0].getElementsByTagName("innerName").length; i++) {
+			Iname = cL[0].getElementsByTagName("innerName")[i].childNodes[0].nodeValue;
+			var crosssite = cL[0].getElementsByTagName("innerName")[i].getAttribute("flag");
+			//alert(get_num(crosssite));
+			var a = "";
+			var b = "";
+			var x = get_point(Iname);
+			for (var j = 0; j < Iname.length; j++) {
+				if (j < x) {
+					a = a + Iname[j];
+				} else if (j > x) {
+					b = b + Iname[j];
+				}
+			}
+			//alert(get_num(a));
+			//alert(get_num(b));
+			s[get_num(a)].p[get_num(b)].innername = true;
+			if (crosssite != undefined) {
+				siteP[get_num(crosssite)].sp = Iname;
+				//alert(crosssite);
+			}
+			//alert(a);
+			//alert(b);
+			//alert(Iname[i]);
+		}
+		//alert("check4")
+		for (var i = 0; i < cL[0].getElementsByTagName("outerName").length; i++) {
+			var oname = cL[0].getElementsByTagName("outerName")[i].childNodes[0].nodeValue;
+			//alert(oname);
+			var a = "";
+			var b = "";
+			var x = get_point(oname);
+			for (var j = 0; j < oname.length; j++) {
+				if (j < x) {
+					a = a + oname[j];
+				} else if (j > x) {
+					b = b + oname[j];
+				}
+			}
+			s[get_num(a)].p[get_num(b)].outername = true;
+			//alert(s[get_num(a)].p[get_num(b)].outername);
+		}
+		//test
+		//alert("check5");
+		for (var i = 1; i <= Dc.S_N; i++) {
+			if (s[i].fatherNode != -1) {
+				s[i].root_number = s[s[i].fatherNode].root_number;
+			} else if (s[i].fatherNode == -1) {
+				root[s[i].root_number].Nofacir++;
+				//
+			}
+			//alert(s[i].root_number);
+			//alert(s[i].name);
+			//alert(s[i].site);
+			//alert(s[i].inserve);
+			//alert(s[i].CN);
+			//alert(s[i].DL);
+			//alert(s[i].U);
+			//for(var j = 1; j <= s[i].port_number; j++)
+			//{
+			//alert(s[i].p[j].pI);
+			//alert(s[i].p[j].pN);
+			//alert(s[i].p[j].pT);
+			//alert(s[i].p[j].pC);
+			//alert(s[i].p[j].innername);
+			//alert(s[i].p[j].outername);
+			//}
+		}
+		// console.log(s);
+		// console.log(cir);
+		// console.log(root);
+		// console.log(siteP);
+		// console.log(link);
+
+		// --------------测试反推成xml:开始声明一个json 用于转换为xml
+		/*
+		var doc = {};
+		doc.S = {};
+		doc.S.s = new Array();
+		doc.S._description = "services";
+
+		// S标签
+		for (var i = 1; i < s.length; i++) {
+			doc.S.s[i - 1] = new Service();
+			doc.S.s[i - 1].__text = s[i].name != undefined ? s[i].name : "";
+		}
+		// Ctrl标签
+		doc.Ctrl = {
+			_description: "mapping",
+			s: {}
+		};
+
+		// ctrl节点下内容
+		doc.Ctrl.s = new Array();
+		for (var i = 1; i < s.length; i++) {
+			doc.Ctrl.s[i - 1] = {};
+			doc.Ctrl.s[i - 1]._flag = s[i].name != undefined ? s[i].name : "";
+			doc.Ctrl.s[i - 1].C = {
+				_description: "a dervice control",
+				CT: s[i].CT != undefined ? s[i].CT : "",
+				U: s[i].U != undefined ? s[i].U : "",
+				CN: s[i].CN != undefined ? s[i].CN : "",
+				CL: {
+					_description: "control level",
+					DL: s[i].DL != undefined ? s[i].DL : "",
+					CN: s[i].CN != undefined ? s[i].CN : ""
+				},
+				P: {
+					_description: "a service Ports",
+				}
+			}
+			doc.Ctrl.s[i - 1].C.P.p = new Array();
+			for (var j = 1; j < s[i].p.length; j++) {
+				var pData = {
+					pC: s[i].p[j].pC != undefined ? s[i].p[j].pC : "",
+					pI: s[i].p[j].pI != undefined ? s[i].p[j].pI : "",
+					pN: s[i].p[j].pN != undefined ? s[i].p[j].pN : "",
+					pT: s[i].p[j].pT != undefined ? s[i].p[j].pT : "",
+					_flag: s[i].p[j].pI != undefined ? s[i].p[j].pI : ""
+				}
+				doc.Ctrl.s[i - 1].C.P.p[j - 1] = pData;
+			}
+		}
+		// cL标签
+		doc.cL = {
+			edgeLink: new Array()
+		}
+		for (var i = 0; i < link.length; i++) {
+			doc.cL.edgeLink[i] = {};
+			doc.cL.edgeLink[i].linkPort = new Array();
+			doc.cL.edgeLink[i].linkPort[0] = link[i].start != undefined ? link[i].start : "";
+			doc.cL.edgeLink[i].linkPort[1] = link[i].end != undefined ? link[i].end : "";
+		}
+		//cP标签
+		doc.cP = {
+			root: new Array()
+		}
+		for (var i = 1; i < s.length; i++) {
+			if (s[i].sitename != undefined && s[i].sitename != null && s[i].sitename != "") {
+				doc.cP.root[doc.cP.root.length] = {
+					s: {
+						_flag: "s" + i,
+						site: s[i].sitename != undefined ? s[i].sitename : "",
+						s1: new Array()
+					}
+				}
+			}
+		}
+		for (var i = 1; i < s.length; i++) {
+			if (s[i].fatherNode != -1) {
+				var add = false;
+				for (var j = 0; j < doc.cP.root.length; j++) {
+					if (doc.cP.root[j].s._flag == "s" + s[i].fatherNode) {
+						doc.cP.root[j].s.s1[doc.cP.root[j].s.s1.length] = {
+							_flag: "s" + i
+						};
+						add = true;
+						break;
+					}
+				}
+				if (!add) {
+					doc.cP.root[doc.cP.root.length] = {
+						s: {
+							_flag: "s" + s[i].fatherNode,
+							s1: [{
+								_flag: "s" + i
+							}]
+						}
+					}
+				}
+			}
+		}
+		// 设置外层的site
+		for (var j = 0; j < root.length; j++) {
+			if (root[j].osite != undefined && root[j].osite == true) {
+				doc.cP.root[j].site = {
+					__text: root[j].ositename
+				}
+			}
+		}
+
+		// 设置innerName
+		// doc.Ctrl.s = new Array();
+		doc.cL.innerLink = {};
+		doc.cL.innerLink.innerName = new Array();
+		for (var i = 1; i < s.length; i++) {
+			for (var j = 1; j < s[i].p.length; j++) {
+				if (s[i].p[j].innername === true) {
+					var name = doc.Ctrl.s[i - 1].C.P.p[j - 1].pI;
+					doc.cL.innerLink.innerName[doc.cL.innerLink.innerName.length] = name;
+				}
+			}
+		}
+		// 保存测试用
+		// var x2js = new X2JS();
+		// var jsonObj = doc;
+		// var xmlAsStr = x2js.json2xml_str(jsonObj);
+		// mlAsStr = "<doc>" + xmlAsStr + "</doc>";
+		// var saveXML = new Blob([xmlAsStr], { type: "xml;charset=utf-8" })
+		// var fileName = $("#fileName").val();
+		// fileName = "test.xml";
+		// saveAs(saveXML, fileName);
+		*/
+
+		//画偶图  
+		var elm = document.getElementById("my-canves");
+		var paper = Raphael(elm, 12000, 8000);
+		
+		var x = 50,
+			y = 100,
+			l = 200,
+			w = 240;
+		dashed = {
+			fill: "none",
+			str2oke: "#D3D3D3",
+			"stroke-dasharray": "- "
+		}; //虚线
+		sitecoler = {
+			fill: "#D3D3D3",
+			str2oke: "#000",
+			"stroke-dasharray": "- "
+		}; //站点
+		circlrcoler = {
+			stroke: "#87CEFA"
+		}; //服务
+		yellow = {
+			fill: "#FFFF00"
+		};
+		green = {
+			fill: "#00FF00"
+		};
+		red = {
+			fill: "#FF0000"
+		};
+		nouse = {
+			fill: "none",
+			stroke: "#F00",
+			str2oke: "#D3D3D3",
+			"stroke-dasharray": "- "
+		}
+		var deg = Math.PI / 180; //弧度
+		//00FF00 绿 FFFF00黄  FF0000红  控制属性（输入(黄)，输出（绿），输入/输出（红））
+		var Point = new Array();
+		//var cir = paper.circle(80,140,20).attr(circlrcoler);
+		//alert(Dc.sitenumber);
+		//不考虑过多服务，嵌套只考虑一层
+		for (var i = 0; i < Dc.RootNumber; i++) {
+			Point[i] = x;
+			paper.rect(x, y, l, w).attr(dashed);
+			paper.text(x + 10, 110, i).attr({
+				fill: "#000",
+				"font-size": 18
+			});
+			//只有一个服务
+			if (root[i].Nofacir == 1) {
+				for (var j = 1; j <= Dc.S_N; j++) {
+					if (s[j].root_number == i && s[j].fatherNode == -1) {
+						cir[j].Id = s[j].name;
+						cir[j].x = (x + x + l) / 2;
+						cir[j].y = (y + y + w) / 2
+						if (s[j].inserve <= 1) {
+							cir[j].r = 30;
+							paper.circle(cir[j].x, cir[j].y, cir[j].r).attr(circlrcoler);
+							//paper.circle(cir[j].x,cir[j].y ,cir[j].r-30).attr(circlrcoler);
+							paper.text(cir[j].x - cir[j].r, cir[j].y - cir[j].r, s[j].name).attr({
+								fill: "#87CEFA",
+								"font-size": 12
+							});
+							//只考虑嵌套服务只有一个
+							for (var k = Dc.S_N; k >= 1; k--) {
+								if (s[k].fatherNode == j) {
+									cir[k].Id = s[k].name;
+									cir[k].x = cir[j].x;
+									cir[k].y = cir[j].y;
+									cir[k].r = cir[j].r / 2;
+									paper.circle(cir[j].x, cir[j].y, cir[k].r).attr(circlrcoler);
+									paper.text(cir[k].x - cir[j].r / 2, cir[j].y - cir[j].r / 2, s[k].name).attr({
+										fill: "#87CEFA",
+										"font-size": 10
+									});
+									//alert(cir[k].x);
+								}
+							}
+						}
+						//多个嵌套服务
+						else {
+							cir[j].r = 60;
+							paper.circle(cir[j].x, cir[j].y, cir[j].r).attr(circlrcoler);
+							paper.text(cir[j].x - cir[j].r, cir[j].y - cir[j].r, s[j].name).attr({
+								fill: "#87CEFA",
+								"font-size": 12
+							});
+							//只考虑嵌套服务只有一个
+							var cot = 0;
+							var gap = 240 / (s[j].inserve - 1);
+							//alert(gap);
+							for (var k = Dc.S_N; k >= 1; k--) {
+								if (s[k].fatherNode == j) {
+									cir[k].Id = s[k].name;
+									cir[k].x = cir[j].x + (cir[j].r / 2) * Math.sin((240 + gap * cot) * deg);
+									cir[k].y = cir[j].y - (cir[j].r / 2) * Math.cos((240 + gap * cot) * deg);
+									cir[k].r = cir[j].r / 5;
+									if (special == 1 && k == 2) {
+										paper.circle(cir[k].x, cir[k].y, cir[k].r).attr(nouse);
+									} else paper.circle(cir[k].x, cir[k].y, cir[k].r).attr(circlrcoler);
+									paper.text(cir[k].x, cir[k].y + cir[k].r + 5, s[k].name).attr({
+										fill: "#87CEFA",
+										"font-size": 10
+									});
+									cot++;
+									//alert(cir[k].x);
+								}
+							}
+						}
+					}
+				}
+			}
+			//多个服务内嵌套多个服务未写;
+			else {
+				var Li = (l - 20) / root[i].Nofacir;
+				var Wi = (w - 20) / root[i].Nofacir;
+				var xi = (x + 20 + Li + x) / 2;
+				var yi = (y + 20 + Wi + y) / 2;
+				for (var j = 1; j <= Dc.S_N; j++) {
+					if (s[j].root_number == i && s[j].fatherNode == -1) {
+						cir[j].Id = s[j].name;
+						cir[j].x = xi;
+						cir[j].y = yi;
+						cir[j].r = 30;
+						paper.circle(xi, yi, cir[j].r).attr(circlrcoler);
+						paper.text(xi - cir[j].r + 5, yi - cir[j].r, s[j].name).attr({
+							fill: "#87CEFA",
+							"font-size": 12
+						});
+						//只考虑嵌套服务只有一个
+						for (var k = 1; k <= Dc.S_N; k++) {
+							if (s[k].fatherNode == j) {
+								cir[k].Id = s[k].name;
+								cir[k].x = xi;
+								cir[k].y = yi;
+								cir[k].r = cir[j].r / 2;
+								paper.circle(xi, yi, cir[k].r).attr(circlrcoler);
+								paper.text(cir[k].x - cir[j].r / 2, cir[j].y - cir[j].r / 2, s[k].name).attr({
+									fill: "#87CEFA",
+									"font-size": 10
+								});
+								//alert(cir[k].x);
+							}
+						}
+						xi = xi + Li;
+						yi = yi + Wi;
+					}
+				}
+			}
+			if (root[i].osite == true) {
+				paper.rect(x + l - 30, y + w - 20, 25, 15).attr(sitecoler);
+				siteP[get_num(root[i].ositename)].X = x + l - 30;
+				siteP[get_num(root[i].ositename)].Y = y + w - 20;
+				paper.text(siteP[get_num(root[i].ositename)].X + 12.5, siteP[get_num(root[i].ositename)].Y + 8, get_num(root[i].ositename))
+					.attr({
+						fill: "#000",
+						"font-size": 15
+					});
+				//alert(get_num(root[i].ositename));
+			}
+			//站点间间隔80;
+			x = x + l + 80;
+		}
+		//00FF00 绿 FFFF00黄  FF0000红
+		//画点
+		for (var i = 1; i <= Dc.S_N; i++) {
+			var angle1 = 225;
+			var angle2 = 315;
+			var angle3 = 270;
+			var angle4 = 90;
+			var angle5 = 360;
+			var angle6 = 45;
+			var angle7 = 135;
+			var angle8 = 180;
+			var xi = cir[i].x;
+			var yi = cir[i].y;
+			var r = cir[i].r;
+			//alert(s[i].fatherNode);
+			for (var j = 1; j <= s[i].port_number; j++) {
+				//alert(s[i].p[j].pI);
+				if (s[i].fatherNode == -1) {
+					if (s[i].p[j].pC == "input") {
+						//input端口 + 内部接口 在225-270;
+						if (s[i].p[j].innername == true) {
+							paper.circle(xi + r * Math.sin(angle1 * deg), yi - r * Math.cos(angle1 * deg), 2).attr(yellow);
+							cir[i].pointX[j] = xi + r * Math.sin(angle1 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle1 * deg);
+							angle1 = angle1 + 10;
+						}
+						//inpu端口t + 外部接口 在315-360;
+						else if (s[i].p[j].outername == true) {
+							paper.circle(xi + r * Math.sin(angle2 * deg), yi - r * Math.cos(angle2 * deg), 2).attr(yellow);
+							cir[i].pointX[j] = xi + r * Math.sin(angle2 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle2 * deg);
+							angle2 = angle2 + 10;
+						}
+						//纯input端口 270-315
+						else {
+							paper.circle(xi + r * Math.sin(angle3 * deg), yi - r * Math.cos(angle3 * deg), 2).attr(yellow);
+							//alert(r*Math.cos(angle3*deg));
+							cir[i].pointX[j] = xi + r * Math.sin(angle3 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle3 * deg);
+							angle3 = angle3 + 10;
+						}
+					} else if (s[i].p[j].pC == "output") {
+						//output端口 + 内部接口 在90-135;
+						if (s[i].p[j].innername == true) {
+							paper.circle(xi + r * Math.sin(angle4 * deg), yi - r * Math.cos(angle4 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle4 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle4 * deg);
+							angle4 = angle4 + 10;
+						}
+						//output端口 + 外部接口 在0-45;
+						else if (s[i].p[j].outername == true) {
+							paper.circle(xi + r * Math.sin(angle5 * deg), yi - r * Math.cos(angle5 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle5 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle5 * deg);
+							angle5 = angle5 + 10;
+						}
+						//output端口45-90;
+						else {
+							paper.circle(xi + r * Math.sin(angle6 * deg), yi - r * Math.cos(angle6 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle6 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle6 * deg);
+							angle6 = angle6 + 10;
+						}
+					}
+					//callput端口根据连接的站点确定位置
+					else {
+						var angle, flag = false;
+						//alert(s[i].p[j].pI);
+						//alert(flag);
+						if (s[i].p[j].innername == true) {
+							//alert("check");
+							for (var k = 0; k < Dc.E_N; k++) {
+								//alert(Dc.E_N);
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle4;
+										angle4 = angle4 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									}
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle4;
+										angle4 = angle4 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									}
+								}
+								//alert(flag);
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle8;
+								angle8 = angle8 + 10;
+								//alert("check");
+							}
+							//alert("check");
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						} else if (s[i].p[j].outername == true) {
+							var angle, flag = false;
+							for (var k = 0; k < Dc.E_N; k++) {
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+										break;
+									}
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+										break;
+									}
+								}
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle5;
+								angle5 = angle5 + 10;
+							}
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						} else {
+							var angle, flag = false;
+							for (var k = 0; k < Dc.E_N; k++) {
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+										break;
+									}
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle5;
+										angle5 = angle5 - 10;
+										flag = true;
+										break;
+									}
+								}
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle7;
+								angle7 = angle7 + 10;
+								// alert("check");
+							}
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						}
+					}
+				}
+				//暂时未考虑嵌套的节点与另一站点的服务连接；
+				else if (s[i].fatherNode != -1) {
+					//alert("check7");
+					if (s[i].p[j].pC == "input") {
+						if (s[i].p[j].innername == true) {
+							paper.circle(xi + r * Math.sin(angle4 * deg), yi - r * Math.cos(angle4 * deg), 2).attr(yellow);
+							cir[i].pointX[j] = xi + r * Math.sin(angle4 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle4 * deg);
+							angle4 = angle4 + 10;
+						} else if (s[i].p[j].outername == true) {
+							paper.circle(xi + r * Math.sin(angle5 * deg), yi - r * Math.cos(angle5 * deg), 2).attr(yellow);
+							cir[i].pointX[j] = xi + r * Math.sin(angle5 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle5 * deg);
+							angle5 = angle5 + 10;
+						} else {
+							paper.circle(xi + r * Math.sin(angle6 * deg), yi - r * Math.cos(angle6 * deg), 2).attr(yellow);
+							cir[i].pointX[j] = xi + r * Math.sin(angle6 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle6 * deg);
+							angle6 = angle6 + 10;
+						}
+					} else if (s[i].p[j].pC == "output") {
+						if (s[i].p[j].innername == true) {
+							paper.circle(xi + r * Math.sin(angle1 * deg), yi - r * Math.cos(angle1 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle1 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle1 * deg);
+							angle1 = angle1 + 10;
+						} else if (s[i].p[j].outername == true) {
+							paper.circle(xi + r * Math.sin(angle2 * deg), yi - r * Math.cos(angle2 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle2 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle2 * deg);
+							angle2 = angle2 + 10;
+						} else {
+							paper.circle(xi + r * Math.sin(angle3 * deg), yi - r * Math.cos(angle3 * deg), 2).attr(green);
+							cir[i].pointX[j] = xi + r * Math.sin(angle3 * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle3 * deg);
+							angle3 = angle3 + 10;
+						}
+					} else {
+						var angle, flag = false;
+						if (s[i].p[j].innername == true) {
+							for (var k = 0; k < Dc.E_N; k++) {
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle4;
+										angle4 = angle4 + 10;
+										flag = true;
+										break;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									} else {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										flag = true;
+										break;
+									}
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle4;
+										angle4 = angle4 + 10;
+										break;
+										flag = true;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										break;
+										flag = true;
+									} else {
+										angle = angle1;
+										angle1 = angle1 + 10;
+										break;
+										flag = true;
+									}
+								}
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle8;
+								angle8 = angle8 + 10;
+							}
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						} else if (s[i].p[j].outername == true) {
+							var angle, flag = false;
+							for (var k = 0; k < Dc.E_N; k++) {
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+										flag = true;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+										flag = true;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+									}
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+										flag = true;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+										flag = true;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+										flag = true;
+									}
+								}
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle5;
+								angle5 = angle5 + 10;
+							}
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						} else {
+							var angle, flag = false;
+							for (var k = 0; k < Dc.E_N; k++) {
+								if (link[k].start == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].end)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+									} else if (s[i].root_number < s[getservice(link[k].end)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+									}
+									flag = true;
+								} else if (link[k].end == s[i].p[j].pI) {
+									if (s[i].root_number > s[getservice(link[k].start)].root_number) {
+										angle = angle6;
+										angle6 = angle6 + 10;
+									} else if (s[i].root_number < s[getservice(link[k].start)].root_number) {
+										angle = angle2;
+										angle2 = angle2 + 10;
+									} else {
+										angle = angle5;
+										angle5 = angle5 + 10;
+									}
+									flag = true;
+								}
+								if (flag == true) {
+									break;
+								}
+							}
+							if (flag == false) {
+								angle = angle7;
+								angle7 = angle7 + 10;
+							}
+							paper.circle(xi + r * Math.sin(angle * deg), yi - r * Math.cos(angle * deg), 2).attr(red);
+							cir[i].pointX[j] = xi + r * Math.sin(angle * deg);
+							cir[i].pointY[j] = yi - r * Math.cos(angle * deg);
+						}
+					}
+				}
+			}
+		}
+		//内部站点
+		for (var i = 1; i <= Dc.S_N; i++) {
+			if (s[i].site == true && s[i].inserve == 0) {
+				paper.rect(cir[i].x - 12.5, cir[i].y - 7.5, 25, 15).attr(sitecoler);
+				paper.text(cir[i].x, cir[i].y, get_num(s[i].sitename)).attr({
+					fill: "#000",
+					"font-size": 15
+				});
+				siteP[get_num(s[i].sitename)].X = cir[i].x - 12.5;
+				siteP[get_num(s[i].sitename)].Y = cir[i].y - 7.5;
+				//alert(s[i].sitename);
+			} else if (s[i].site == true && s[i].inserve != 0) {
+				paper.rect(cir[i].x - 7, cir[i].y + cir[i].r / 2 + 2, 12, 8).attr(sitecoler);
+				paper.text(cir[i].x - 7 + 6, cir[i].y + cir[i].r / 2 + 2 + 4, get_num(s[i].sitename)).attr({
+					fill: "#000",
+					"font-size": 6
+				});
+				siteP[get_num(s[i].sitename)].X = cir[i].x - 7;
+				siteP[get_num(s[i].sitename)].Y = cir[i].y + cir[i].r / 2 + 2;
+			}
+		}
+		//边的连接
+		for (var i = 0; i < Dc.E_N; i++) {
+			var s1, p1, s2, p2;
+			s1 = getservice(link[i].start);
+			p1 = getport(link[i].start);
+			s2 = getservice(link[i].end);
+			p2 = getport(link[i].end);
+			var dx = (cir[s1].pointX[p1] - cir[s2].pointX[p2]);
+			var dy = (cir[s1].pointY[p1] - cir[s2].pointY[p2]);
+			var p1x = cir[s1].pointX[p1];
+			var p1y = cir[s1].pointY[p1];
+			var p2x = cir[s2].pointX[p2];
+			var p2y = cir[s2].pointY[p2];
+			if (dx < 0) {
+				if (dy < 0) {
+					var path1 = [
+						["M", p1x, p1y],
+						["C", p1x - Math.min(-20, dx / 2), p1y, p2x + Math.min(-20, dx / 2), p2y, p2x, p2y]
+					];
+					if (special == 1 && (s1 == "3" || s2 == "3")) {
+						paper.path(path1).attr(nouse);
+					} else paper.path(path1).attr(circlrcoler);
+				} else {
+					var path1 = [
+						["M", p1x, p1y],
+						["C", p1x - Math.min(-20, dx / 3), p1y + 10, p2x + Math.min(-20, dx / 3), p2y - 10, p2x, p2y]
+					];
+					//paper.path(path1).attr(circlrcoler);
+					if (special == 1 && (s1 == "3" || s2 == "3")) {
+						paper.path(path1).attr(nouse);
+					} else paper.path(path1).attr(circlrcoler);
+				}
+			} else if (dx == 0) {
+				var path1 = [
+					["M", p1x, p1y],
+					["C", p1x + 10, p1y + dy / 4, p2x - 10, p1y - dy / 4, p2x, p2y]
+				];
+				//paper.path(path1).attr(circlrcoler);
+				if (special == 1 && (s1 == "3" || s2 == "3")) {
+					paper.path(path1).attr(nouse);
+				} else paper.path(path1).attr(circlrcoler);
+			} else {
+				if (dy < 0) {
+					var path1 = [
+						["M", p1x, p1y],
+						["C", p1x - Math.max(10, dx / 2), p1y, p2x + dx / 3, p2y, p2x, p2y]
+					];
+					//paper.path(path1).attr(circlrcoler);
+					if (special == 1 && (s1 == "3" || s2 == "3")) {
+						paper.path(path1).attr(nouse);
+					} else paper.path(path1).attr(circlrcoler);
+				} else {
+					var path1 = [
+						["M", p2x, p2y],
+						["C", p2x + Math.max(10, dx), p2y, p1x - dx / 3, p1y, p1x, p1y]
+					];
+					//paper.path(path1).attr(circlrcoler);
+					if (special == 1 && (s1 == "3" || s2 == "3")) {
+						paper.path(path1).attr(nouse);
+					} else paper.path(path1).attr(circlrcoler);
+				}
+			}
+		}
+		//alert(s[4].p[2].outername);
+		for (var i = 1; i <= Dc.S_N; i++) {
+			for (var j = 1; j <= s[i].port_number; j++) {
+				var path;
+				var px = cir[i].pointX[j];
+				var py = cir[i].pointY[j];
+				if (s[i].p[j].innername == true) {
+					var flag = false;
+					var pos;
+					for (var k = 0; k <= Dc.sitenumber; k++) {
+						if (siteP[k].sp == s[i].p[j].pI) {
+							flag = true;
+							pos = k;
+							break;
+						}
+					}
+					if (flag == false) {
+						path = [
+							["M", px, py],
+							["C", px + 20, py + w / 3, px - 20, py + w / 2, px, py + w / 2 + 10]
+						];
+						paper.text(px + 10, py + w / 2 + 10, "i").attr({
+							fill: "#87CEFA",
+							"font-size": 15
+						});
+						paper.text(px + 15, py + w / 2 + 12, i).attr({
+							fill: "#87CEFA",
+							"font-size": 8
+						});
+					} else {
+						path = [
+							["M", px, py],
+							["C", px + (siteP[pos].X - px + 40), py - 20, siteP[pos].X, siteP[pos].Y, siteP[pos].X, Math.max(360, siteP[pos]
+								.Y + w / 2)]
+						];
+						paper.text(siteP[pos].X + 20.5, Math.max(360, siteP[pos].Y + w / 2), "i").attr({
+							fill: "#87CEFA",
+							"font-size": 15
+						});
+						paper.text(siteP[pos].X + 25.5, Math.max(360, siteP[pos].Y + w / 2) + 2, i).attr({
+							fill: "#87CEFA",
+							"font-size": 8
+						});
+					}
+				} else if (s[i].p[j].outername == true) {
+					path = [
+						["M", px, py],
+						["C", px + 20, py - w / 3, px - 20, py - w / 2, px, py - w / 2 - 10]
+					];
+					paper.text(px + 10, py - w / 2 - 10, "O").attr({
+						fill: "#87CEFA",
+						"font-size": 15
+					});
+					paper.text(px + 17, py - w / 2 - 8, i).attr({
+						fill: "#87CEFA",
+						"font-size": 10
+					});
+				}
+				paper.path(path).attr(circlrcoler);
+			}
+		}
+
+		var c = document.getElementById("my-canves").getElementsByTagName("svg");
+		console.log(c);
+		// c[0].setAttribute("viewBox", "0 0 200 200")
+		/*
+		var path1 = [["M",83.3+20,130],["C",83.3+20,130+20,83.3+10,163,116-20,193.75]];
+		paper.path(path1).attr(circlrcoler);
+		var path2 = [["M",116+20,193.75],["C",116+50,193.75-50,x-100-50,163+20,x-100-20*Math.sin(45*deg),162.5-20*Math.sin(45*deg)]];
+		paper.path(path2).attr(circlrcoler);
+		var path3 = [["M",x-100,50],["C",x-100-50,100,x-100-30,120,x-100-20*Math.sin(45*deg),162.5-20*Math.sin(45*deg)]];
+		paper.path(path3).attr(circlrcoler);
+		var path4 = [["M",83.3,130+20],["C",83.3-20,130+20,83.3-30,130+50,83.3-50,130+60]];
+		paper.path(path4).attr(circlrcoler);
+		var path5 = [["M",136,193.75],["C",136+20,193.75-20,136+30,193.75+20,136+40,193.75+30]];
+		paper.path(path5).attr(circlrcoler);
+		*/
+		//var cir = paper.circle(35,25,20);
+	</script>
+</body>
+
+</html>

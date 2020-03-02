@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>DCEM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- basic styles -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+  <!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+  <!-- page specific plugin styles -->
+  <!-- fonts -->
+  <!-- ace styles -->
+  <link rel="stylesheet" href="assets/css/ace.min.css" />
+  <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+  <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+  <!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+  <!-- inline styles related to this page -->
+  <!-- ace settings handler -->
+  <script src="assets/js/ace-extra.min.js"></script>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+</head>
+<style>
+  .sidebar:before {
+    width: 270px;
+  }
+
+  .sidebar {
+    width: 270px;
+  }
+
+  .main-content {
+    margin-left: 270px;
+  }
+
+  .navbar {
+    min-height: 48px;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 30px;
+  }
+
+  .sidebar-shortcuts-large>.btn {
+    margin-right: 12px;
+    width: 45px;
+  }
+</style>
+
+<body>
+  <div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+      try {
+        ace.settings.check('navbar', 'fixed')
+      } catch (e) { }
+    </script>
+    <div class="navbar-container" id="navbar-container">
+      <div class="navbar-header pull-left">
+        <a href="#" class="navbar-brand">
+          <small>
+            <i class="icon-leaf"></i>
+            DCEM: Service Computing Evolution System
+          </small>
+        </a><!-- /.brand -->
+      </div><!-- /.navbar-header -->
+    </div>
+  </div><!-- /.container -->
+  </div>
+  <div class="main-container-inner">
+    <a class="menu-toggler" id="menu-toggler" href="#">
+      <span class="menu-text"></span>
+    </a>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+          <button class="btn btn-success">
+            <i class="icon-signal"></i>
+          </button>
+          <button class="btn btn-info">
+            <i class="icon-pencil"></i>
+          </button>
+          <button class="btn btn-warning">
+            <i class="icon-group"></i>
+          </button>
+          <button class="btn btn-danger" style=" margin-right: 2px; ">
+            <i class="icon-cogs"></i>
+          </button>
+        </div>
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+          <span class="btn btn-success"></span>
+          <span class="btn btn-info"></span>
+          <span class="btn btn-warning"></span>
+          <span class="btn btn-danger"></span>
+        </div>
+      </div><!-- #sidebar-shortcuts -->
+      <ul class="nav nav-list">
+        <li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-desktop"></i>
+						<span class="menu-text"> Service Information </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="Service.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> Service Information Display  </span>
+							</a>
+						</li>
+						<!-- <li>
+							<a href="DCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞簇信息 </span>
+							</a>
+						</li> -->
+					</ul>
+				</li>
+				<li class="active open">
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-edit"></i>
+						<span class="menu-text"> Service Cell Modeling </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<!-- <li>
+							<a href="buildDC.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> 数据细胞建模 </span>
+							</a>
+						</li> -->
+						<li class="active">
+							<a href="buildDCCs.html">
+								<i class="icon-double-angle-right"></i>
+								<span class="menu-text"> Service Modeling </span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="test.html">
+						<i class="icon-double-angle-right"></i>
+						<span class="menu-text"> Data Cell Modeling </span>
+					</a>
+				</li>
+      </ul><!-- /.nav-list -->
+      <div class="sidebar-collapse" id="sidebar-collapse">
+        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+      </div>
+      <script type="text/javascript">
+        try {
+          ace.settings.check('sidebar', 'collapsed')
+        } catch (e) { }
+      </script>
+    </div>
+    <div class="main-content">
+      <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+          try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        </script>
+        <ul class="breadcrumb">
+          <li>
+            <i class="icon-home home-icon"></i>
+            <a href="#">Home</a>
+          </li>
+          <li><a href="#">Data Cell Modeling</a></li>
+          <li class="active">Service Modeling</li>
+        </ul><!-- .breadcrumb -->
+        <div class="nav-search" id="nav-search">
+          <form class="form-search">
+            <span class="input-icon">
+              <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input"
+                autocomplete="off" />
+              <i class="icon-search nav-search-icon"></i>
+            </span>
+          </form>
+        </div><!-- #nav-search -->
+      </div>
+      <div class="page-content">
+        <div class="row">
+          <div class="col-sm-7">
+            <!-- <h4 class="header1 smaller lighter green">Service Modeling</h4> -->
+            <div class="btn-toolbar row" style="margin-bottom: 10px; margin-left: 10px;">
+              <button id="submit-draw" class="btn btn-info btn-sm">Draw</button>
+              <button id="submit" class="btn btn-info btn-sm">Save</button>
+            </div>
+
+            <div class="widget-box">
+              <div class="widget-header">
+                <h4>Bigraph Detail</h4>
+                <span class="widget-toolbar">
+                  <a href="#" data-action="settings">
+                    <i class="icon-cog"></i>
+                  </a>
+                  <a href="#" data-action="reload">
+                    <i class="icon-refresh"></i>
+                  </a>
+                  <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                  </a>
+                  <a href="#" data-action="close">
+                    <i class="icon-remove"></i>
+                  </a>
+                </span>
+              </div>
+              <div class="widget-body">
+                <div class="widget-main">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#R" data-toggle="tab">Site</a></li>
+                    <li> <a href="#S" data-toggle="tab">Service</a></li>
+                    <li> <a href="#P" data-toggle="tab">Port</a></li>
+                    <li> <a href="#E" data-toggle="tab">Link</a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="R">
+                      <div class="btn-toolbar"> <button class="btn btn-primary btn-sm" onClick="addLine3()">Add New Site</button></div>
+                      <table id="root">
+                        <tr>
+                          <th>Site Id</th>
+                          <th>Outer Site</th>
+                        </tr>
+                        <tr>
+                          <td><input style=width:100px; name="text" type="text" size="8"></td>
+                          <td>
+                            <input style=width:100px; type="text" size=8>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade" id="S">
+                      <div class="btn-toolbar"><button class="btn btn-primary" onClick="addLine()">Add new Service</button></div>
+                      <table id="Service">
+                        <tr>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Father Node</th>
+                          <th>Inserve</th>
+                          <th>Inner</th>
+                          <th>Site Number</th>
+                        </tr>
+                        <tr>
+                          <td><input style=width:100px; name="text" type="text" size="8"></td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <input style=width:100px; style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade" id="P">
+                      <div class="btn-toolbar"><button class="btn btn-primary" onClick="addLine1()">Add New Port</button></div>
+                      <table id="port">
+                        <tr>
+                          <th>Port Id</th>
+                          <th>Port Name</th>
+                          <th>Date Type</th>
+                          <th>Port Type</th>
+                          <th>Port Attribute</th>
+                        </tr>
+                        <tr>
+                          <td><input style=width:100px; name="text" type="text" size="10"></td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <input style=width:100px; type="text" size=10>
+                          </td>
+                          <td>
+                            <select style=width:100px; id="Ctrl">
+                              <option value="input">input</option>
+                              <option value="output">output</option>
+                              <option value="callput">callput</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select style=width:100px; id="cL">
+                              <option value="null"></option>
+                              <option value="innerlink">innerlink</option>
+                              <option value="outerlink">outerlink</option>
+                            </select>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade" id="E">
+                      <div class="btn-toolbar"><button class="btn btn-primary" onClick="addLine2()">Add New Link</button></div>
+                      <table id="edge">
+                        <tr>
+                          <th>Port 1</th>
+                          <th>Port 2</th>
+                        </tr>
+                        <tr>
+                          <td><input style=width:100px; name="text" type="text" size="8"></td>
+                          <td>
+                            <input style=width:100px; type="text" size=8>
+                          </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin:10px 0px; border:1px solid #c5d0dc; height:636px; ">
+              <div class="widget-header">
+                <h4>Display of the Bigraph</h4>
+              </div>
+              <div>
+                <div id="my-canves"></div>
+              </div>
+            </div>
+          </div><!-- /span -->
+          <div class="col-sm-5">
+            <div style="z-index:10;height:41px;width:700px;position: absolute;background-color: white"></div>
+            <div class="row" style="margin:40px 0px; border:1px solid #c5d0dc; height:843px; ">
+              <div class="widget-header">
+                <h4>Display XML structure of the Bigraph</h4>
+              </div>
+              <div>
+                <iframe style="height:843px; width:100%;margin-top:-85px;" id="showXMLiframe" src="" frameborder="0"></iframe>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div><!-- /.main-content -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Name:</label>
+                <input id="modal-name" type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Type:</label>
+                <input id="modal-type" type="text" class="form-control" id="recipient-type">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Data Clusters:</label>
+                <textarea id="modal-data-clusters" class="form-control" id="message-text"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Term Language:</label>
+                <textarea id="modal-term-language" class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="modal-save" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- /.main-container -->
+  <!-- basic scripts -->
+  <!--[if !IE]> -->
+  <script src="http://www.jq22.com/jquery/jquery-2.1.1.js"></script>
+  <!-- <![endif]-->
+  <!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+  <!--[if !IE]> -->
+  <!-- <![endif]-->
+  <!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+  <script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" +
+      "/script>");
+  </script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/typeahead-bs2.min.js"></script>
+  <!-- page specific plugin scripts -->
+  <!-- 这是我注释掉的
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+-->
+  <!-- json To xml-->
+  <script src="./xml2json.js"></script>
+  <script src="./FileSaver.js"></script>
+  <!-- ace scripts -->
+  <script src="assets/js/ace-elements.min.js"></script>
+  <script src="assets/js/ace.min.js"></script>
+  <script type="text/javascript" src="raphael.js"></script>
+  <script type="text/javascript" src="buildDCCs.js"></script>
+  <!-- inline scripts related to this page -->
+  <script type="text/javascript">
+    //	jQuery(function($) {
+    //	var oTable1 = $('#sample-table-2').dataTable( {
+    //	"aoColumns": [
+    //     { "bSortable": false },
+    //      null, null,null, null, null,
+    //	  { "bSortable": false }
+    //	] } );
+    $('table th input:checkbox').on('click', function () {
+      var that = this;
+      $(this).closest('table').find('tr > td:first-child input:checkbox')
+        .each(function () {
+          this.checked = that.checked;
+          $(this).closest('tr').toggleClass('selected');
+        });
+    });
+    $('[data-rel="tooltip"]').tooltip({
+      placement: tooltip_placement
+    });
+
+    function tooltip_placement(context, source) {
+      var $source = $(source);
+      var $parent = $source.closest('table')
+      var off1 = $parent.offset();
+      var w1 = $parent.width();
+      var off2 = $source.offset();
+      var w2 = $source.width();
+      if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+      return 'left';
+    }
+  </script>
+  <div style="display:none">
+    <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+  </div>
+</body>
+
+</html>

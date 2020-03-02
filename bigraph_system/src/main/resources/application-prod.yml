@@ -1,0 +1,19 @@
+spring:
+  devtools:
+    add-properties: false
+  datasource:
+    url: jdbc:mysql://localhost:3307/bigraph
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: info
+    com:
+      zjut:
+        bigraph: info
+  config: classpath:logback-prod.xml

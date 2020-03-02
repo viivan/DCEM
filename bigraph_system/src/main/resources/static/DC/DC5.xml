@@ -1,0 +1,54 @@
+
+	<DC flag="DC5" description="Data Cell">
+	<S description="services">
+		<s>s1</s>
+	</S>
+	<E description="finite edges">
+		
+	</E>
+	<Ctrl description="the mapping between S and C">
+		<s flag="s1">
+			<C flag="C1" description="a dervice control" >
+				<CN description="control Name">s1:control.name</CN>
+				<CT description="control type">s1:control.type</CT>
+				<P description="a service Ports">
+					<p flag="port1">
+						<pI description="port Id">s1.port1</pI>
+						<pN description="port Name">port1.name</pN>
+						<pT description="port Type">json</pT>
+						<pC description="port attribution">input</pC>
+					</p>
+					<p flag="port2">
+						<pI description="port Id">s1.port2</pI>
+						<pN description="port Name">port2.name</pN>
+						<pT description="port Type">json</pT>
+						<pC description="port attribution">output</pC>
+					</p>
+					<p flag="port4">
+						<pI description="port Id">s1.port4</pI>
+						<pN description="port Name">port2.name</pN>
+						<pT description="port Type">json</pT>
+						<pC description="port attribution">callput</pC>
+					</p>
+				</P>
+					
+				<CL description="control level">
+					<DL description="dependency level">single</DL>
+					<CN description="control name">null</CN >
+				</CL>
+				<U description="service availability">0.84</U>
+			</C>
+		</s>
+	</Ctrl>
+	<cL description="link graph ">
+		<innerLink>
+			<innerName flag="site1">s1.port2</innerName>
+		</innerLink>
+	</cL>
+	<cP description="place graph ">
+		<root flag = "root4">
+			<s flag ="s1"></s>
+			<site>site1</site>	
+		</root>
+	</cP>
+	</DC>

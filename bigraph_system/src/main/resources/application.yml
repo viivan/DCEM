@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  servlet:
+    session:
+      timeout: P1D # 1天 Duration 写法，PnDTnHnMn.nS

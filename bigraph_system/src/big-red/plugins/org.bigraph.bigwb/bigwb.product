@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="BigWB" id="org.bigraph.bigwb.product" application="org.bigraph.bigwb.application" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/org.bigraph.bigwb/icons/bwb_16.gif"/>
+
+   <splash
+      location="org.bigraph.bigwb"
+      startupProgressRect="1,287,493,7" />
+   <launcher name="bigwb">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.bigraph.bigwb.feature"/>
+      <feature id="org.eclipse.equinox.p2.user.ui"/>
+   </features>
+
+
+</product>

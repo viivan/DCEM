@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Writing extensions for Big Red
+		</title>
+		<link rel="stylesheet" media="screen" href="../big-red.css">
+	</head>
+	<body>
+<div id="header"></div>
+<h1>
+	Writing extensions for Big Red
+</h1>
+<h2>
+	Table of contents
+</h2>
+<ol>
+	<li>
+		<a href="#introduction">Introduction</a>
+	<li>
+		<a href="#constraining_bigraphs">Constraining bigraphs</a>
+	<li>
+		<a href="#the_basics_of_eclipse">The basics of Eclipse</a>
+</ol>
+<h2 id="introduction">
+	Introduction
+</h2>
+<p>
+	This is a tutorial for new Big Red developers. It introduces some of
+	<a href="http://www.eclipse.org/rcp">Eclipse</a>'s extensibility
+	mechanisms, and shows how they can be used to add features to Big Red.
+</p>
+<p>
+	This tutorial is a worked example. By the end, you'll have extended Big
+	Red to support a <em>scope rule</em>.
+</p>
+<p class="info note">
+	Full source code for the completed extension can be found in the
+	<code>doc/plugins/examples/scope/</code> directory of the Big
+	Red source repository.
+</p>
+<h2 id="constraining_bigraphs">
+	Constraining bigraphs
+</h2>
+<p>
+	Normally, ports in a bigraph can be connected to any other ports.
+	Consider the following bigraph:
+</p>
+<div class="figure">
+	<img src="scope.png">
+</div>
+<p>
+	This bigraph has two links: the <span style="color: #008000">green
+	edge</span> on the left connects the <span style="color: #a52a2a"><code>D</code>
+	node</span> to its children, the <span style="color: #ff0000"><code>A</code>
+	node</span> and the <span style="color: #00ff00"><code>C</code>
+	node</span>, and to its grandchild, the <span style="color: #1e90ff"><code>B</code>
+	node</span>, while the <span style="color: #ff0000">red edge</span>
+	on the right connects the <span style="color: #a52a2a"><code>D</code>
+	node</span> to its sibling, the <span style="color: #1e90ff"><code>B</code>
+	node</span>. Both of these links are completely valid.
+</p>
+<p>
+	We can change this, however, by introducing <em>constraints</em> &mdash;
+	rules that forbid some bigraphs. Here are two possible constraints that
+	could be applied to the above example:&mdash;
+</p>
+<ol>
+<li>
+	A port can be connected only to its node's siblings.
+</li>
+<li>
+	A port can be connected only to its node's descendants.
+</li>
+</ol>
+<p>
+	Applying the first of these constraints to the single port of
+	<span style="color: #a52a2a">control <code>D</code></span>, for
+	example, would forbid the <span style="color: #008000">green edge</span>,
+	and applying the second would forbid the <span style="color: #ff0000">red
+	edge</span>. Both of these constraints introduce a <em>scope</em> to a
+	port &mdash; that is, they restrict the points on a bigraph to which
+	their port can be connected.
+</p>
+<p>
+	The second constraint is much more interesting, however! Many of the
+	systems that we might want to represent using bigraphs &mdash; for
+	example, the &pi;-calculus &mdash; require this particular scope rule
+	in order to be faithfully represented. (In fact, a variant of bigraphs,
+	which adds only this constraint, was.)
+</p>
+<h2 id="the_basics_of_eclipse">
+	The basics of Eclipse
+</h2>
+<p>
+	The <a href="http://www.eclipse.org/rcp">Eclipse Rich Client
+	Platform</a> (the <em>RCP</em>) is the foundation upon which Big Red is
+	built. In fact, all Eclipse applications &mdash; including the
+	<a href="http://www.eclipse.org/jdt/">Java Development Tools</a>
+	(the <em>JDT</em>), the Java IDE that most developers associate with
+	the name <q>Eclipse</q> &mdash; are built on top of the RCP.
+</p>
+<div class="info note">
+	<p>
+		The Eclipse world is very fond of layers of abstraction: the
+		RCP is itself built on top of an extensible platform called
+		<a href="http://www.eclipse.org/equinox/">Equinox</a>,
+		which is an implementation of a modular runtime environment
+		called <a href="http://www.osgi.org/">OSGi</a>.
+	</p>
+	<p>
+		(Many of the concepts introduced by this section are actually
+		OSGi concepts, not specific to Eclipse.)
+	</p>
+</div>
+<p>
+	The RCP consists of a number of <em>plugins</em>. Each of these plugins
+	implements a small piece of the Eclipse environment &mdash; for
+	example, one plugin implements the Eclipse widget toolkit, another
+	implements the user interface, and yet another implements the
+	workspace.
+</p>
+<p>
+	The plugins that make up the RCP only define the base of the Eclipse
+	platform. In order to add support for specific tasks (like writing Java
+	code &mdash; or, indeed, building bigraphical reactive systems), more
+	plugins must be added. Many plugins are required to make a useful
+	application &mdash; for example, the <em>Eclipse Modeling Tools</em>
+	environment is made up of more than seven hundred plugins!
+</p>
+<p>
+	At the most fundamental level, this is all Big Red is: a collection of
+	plugins that augment the RCP with the ability to create, modify, and
+	manipulate the bigraphical model. (The JDT, although orders of
+	magnitude more complex than Big Red, is built in the same way.)
+</p>
+<p>
+	Plugins contain more than just code, though: they also contain metadata
+	in their <em>manifests</em>. Amongst other things, manifests
+	define:&mdash;
+</p>
+<ul>
+	<li>
+		the <em>dependencies</em> of a plugin;
+	<li>
+		the <em>extensions</em> that a plugin contributes to the
+		environment; and
+	<li>
+		the <em>extension points</em>, if any, to which other plugins
+		can contribute extensions.
+</ul>
+<h3 id="extension_points_and_extensions">
+	Extension points and extensions
+</h3>
+<p>
+	Extension points and extensions allow plugins to instantiate and
+	manipulate code contributed by their <em>dependents</em>. Both are
+	represented using XML: extension points are just XML schemas with a
+	Java-style reverse domain name identifier (like <q>org.eclipse.core.contenttype.contentTypes</q>),
+	and extensions are XML elements which conform to the schema of a named
+	extension point.
+</p>
+<p>
+	When a plugin is loaded, its extensions are contributed to the
+	platform's <em>extension registry</em>. The plugin's dependencies can
+	then consult these new extensions.
+</p>
+<p>
+	If one of the fields of an extension point is a fully-qualified class
+	name, then the extension registry can be used to instantiate an object
+	of that class.
+</p>
+<div class="info note">
+<p>
+	In order to make all of this work, Eclipse implements a custom <em>class
+	loader</em> &mdash; the Java runtime component responsible for loading
+	compiled classes at the right time and in the right order.
+</p>
+</div>
+	</body>
+</html>

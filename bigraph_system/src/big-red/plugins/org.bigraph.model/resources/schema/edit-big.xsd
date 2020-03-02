@@ -1,0 +1,184 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:edit="http://bigraph.org/xmlns/2012/edit"
+            xmlns:edit-big="http://bigraph.org/xmlns/2012/edit-big"
+            xmlns:edit-sig="http://bigraph.org/xmlns/2012/edit-sig"
+            targetNamespace="http://bigraph.org/xmlns/2012/edit-big">
+	<xsd:import
+		namespace="http://bigraph.org/xmlns/2012/edit"
+		schemaLocation="edit.xsd" />
+
+	<xsd:import
+		namespace="http://bigraph.org/xmlns/2012/edit-sig"
+		schemaLocation="edit-sig.xsd" />
+
+	<xsd:annotation>
+		<xsd:documentation>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<body>
+		<h1>
+			<code>edit-big</code> schema
+		</h1>
+		<p>
+			This document is part of the <a href="http://www.itu.dk/">IT University of Copenhagen</a>'s set of <a href="http://www.w3.org/XML/Schema">XML Schema</a>s for <i>bigraphs</i>: it can be used to validate <code>edit-big</code> documents.
+		</p>
+		<p>
+			The <code>edit-big</code> XML namespace name is <code><a href="http://bigraph.org/xmlns/2012/edit-big">http://bigraph.org/xmlns/2012/edit-big</a></code>.
+		</p>
+		<p>
+			The key words <q>MUST</q>, <q>MUST NOT</q>, <q>REQUIRED</q>, <q>SHALL</q>, <q>SHALL NOT</q>, <q>SHOULD</q>, <q>SHOULD NOT</q>, <q>RECOMMENDED</q>,  <q>MAY</q>, and <q>OPTIONAL</q> in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.
+		</p>
+		<h2>
+			Notes
+		</h2>
+		<p>
+			This schema defines the edits used when modifying a bigraph; it is only useful when used in conjunction with the <a href="edit.xsd"><code>edit</code> schema</a>.
+		</p>
+		<p>
+			This schema incorporates by reference the <a href="edit.xsd"><code>edit</code> schema</a> and the <a href="edit-sig.xsd"><code>edit-sig</code> schema</a>.
+		</p>
+		<hr />
+	</body>
+</html>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="bigraph-id">
+		<xsd:annotation>
+			<xsd:documentation>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<body>
+		<a id="#bigraph-id" />
+		<h2>
+			<code>bigraph-id</code>
+		</h2>
+		<h3>
+			Children
+		</h3>
+		<p>
+			<code>bigraph-id</code>s MUST NOT contain child
+			elements.
+		</p>
+		<h3>
+			Attributes
+		</h3>
+		<p>
+			<code>bigraph-id</code>s MUST NOT have any attributes.
+		</p>
+		<hr />
+	</body>
+</html>
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+
+	<xsd:element name="site-id" substitutionGroup="edit:rename-id-subst" />
+	<xsd:element name="root-id" substitutionGroup="edit:rename-id-subst" />
+	<xsd:element name="innername-id" substitutionGroup="edit:rename-id-subst" />
+	<xsd:element name="outername-id" substitutionGroup="edit:rename-id-subst" />
+	<xsd:element name="edge-id" substitutionGroup="edit:rename-id-subst" />
+	
+	<xsd:element name="port-id">
+		<xsd:complexType><xsd:complexContent>
+			<xsd:extension base="edit:named-id-subst-T">
+				<xsd:sequence>
+					<xsd:element
+						ref="edit-big:node-id" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent></xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="node-id" substitutionGroup="edit:rename-id-subst">
+		<xsd:complexType><xsd:complexContent>
+			<xsd:extension base="edit:named-id-subst-T">
+				<xsd:sequence>
+					<xsd:element
+						ref="edit-sig:control-id" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent></xsd:complexType>
+	</xsd:element>
+
+	<xsd:group name="any-point-id">
+		<xsd:choice>
+			<xsd:element ref="edit-big:port-id" />
+			<xsd:element ref="edit-big:innername-id" />
+		</xsd:choice>
+	</xsd:group>
+	
+	<xsd:element name="add">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element ref="edit-big:bigraph-id" />
+					<xsd:choice>
+						<xsd:element ref="edit-big:edge-id" />
+						<xsd:element ref="edit-big:root-id" />
+						<xsd:element ref="edit-big:innername-id" />
+						<xsd:element ref="edit-big:outername-id" />
+					</xsd:choice>
+				</xsd:sequence>
+				<xsd:sequence>
+					<xsd:choice>
+						<xsd:element ref="edit-big:node-id" />
+						<xsd:element ref="edit-big:root-id" />
+					</xsd:choice>
+					<xsd:choice>
+						<xsd:element ref="edit-big:node-id" />
+						<xsd:element ref="edit-big:site-id" />
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="remove">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element ref="edit-big:bigraph-id" />
+					<xsd:choice>
+						<xsd:element ref="edit-big:edge-id" />
+						<xsd:element ref="edit-big:root-id" />
+						<xsd:element ref="edit-big:innername-id" />
+						<xsd:element ref="edit-big:outername-id" />
+					</xsd:choice>
+				</xsd:sequence>
+				<xsd:sequence>
+					<xsd:choice>
+						<xsd:element ref="edit-big:node-id" />
+						<xsd:element ref="edit-big:root-id" />
+					</xsd:choice>
+					<xsd:choice>
+						<xsd:element ref="edit-big:node-id" />
+						<xsd:element ref="edit-big:site-id" />
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="connect">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="edit-big:any-point-id" />
+				<xsd:choice>
+					<xsd:element ref="edit-big:edge-id" />
+					<xsd:element ref="edit-big:outername-id" />
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="disconnect">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="edit-big:any-point-id" />
+				<xsd:choice>
+					<xsd:element ref="edit-big:edge-id" />
+					<xsd:element ref="edit-big:outername-id" />
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

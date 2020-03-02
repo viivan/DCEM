@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="dk.itu.big_red.interactionManagers" name="Interaction managers" schema="expoints/dk.itu.big_red.interactionManagers.exsd"/>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="dk.itu.big_red.application.standalone.RedApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="dk.itu.big_red.application.plugin.Perspective"
+            icon="resources/icons/icon32.png"
+            id="dk.itu.big_red.perspective"
+            name="Big Red">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <newWizardShortcut
+               id="dk.itu.big_red.NewAgentWizard">
+         </newWizardShortcut>
+         <newWizardShortcut
+               id="dk.itu.big_red.NewBRSWizard">
+         </newWizardShortcut>
+         <newWizardShortcut
+               id="dk.itu.big_red.NewRuleWizard">
+         </newWizardShortcut>
+         <newWizardShortcut
+               id="dk.itu.big_red.NewSignatureWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="dk.itu.big_red.application"
+            description="The graphical development environment for bigraphs"
+            name="Big Red">
+         <property
+               name="windowImages"
+               value="resources/icons/icon16.png,resources/icons/icon32.png">
+         </property>
+         <property
+               name="appName"
+               value="Big Red">
+         </property>
+         <property
+               name="aboutImage"
+               value="resources/logo-big.png">
+         </property>
+         <property
+               name="aboutText"
+               value="Big Red, the graphical development environment for&#x0A;bigraphs&#x0A;Copyright © 2009, 2010 Alexander Faithfull. All rights&#x0A;reserved.&#x0A;&#x0A;Big Red is built on the Eclipse Rich Client Platform.&#x0A;Copyright © Eclipse contributors and others 2000,&#x0A;2009.  All rights reserved. Visit http://eclipse.org/ .&#x0A;&#x0A;This product includes software developed by the&#x0A;Apache Software Foundation, http://apache.org/ .">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="2,284,451,10">
+         </property>
+         <property
+               name="startupForegroundColor"
+               value="000000">
+         </property>
+         <property
+               name="startupMessageRect"
+               value="22,264,411,20">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="dk.itu.big_red.editors.bigraph.BigraphEditor"
+            contributorClass="dk.itu.big_red.editors.bigraph.BigraphEditorActionBarContributor"
+            default="true"
+            extensions="bigraph, bigraph-agent"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.BigraphEditor"
+            name="Bigraph Editor">
+         <contentTypeBinding
+               contentTypeId="dk.itu.big_red.bigraph">
+         </contentTypeBinding>
+      </editor>
+      <editor
+            class="dk.itu.big_red.editors.signature.SignatureEditor"
+            contributorClass="dk.itu.big_red.editors.signature.ActionBarContributor"
+            default="true"
+            extensions="bigraph-signature"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.SignatureEditor"
+            name="Signature Editor">
+         <contentTypeBinding
+               contentTypeId="dk.itu.big_red.signature">
+         </contentTypeBinding>
+      </editor>
+      <editor
+            class="dk.itu.big_red.editors.rule.RuleEditor"
+            contributorClass="dk.itu.big_red.editors.rule.ActionBarContributor"
+            default="true"
+            extensions="bigraph-rule"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.RuleEditor"
+            name="Reaction Rule Editor">
+         <contentTypeBinding
+               contentTypeId="dk.itu.big_red.rule">
+         </contentTypeBinding>
+      </editor>
+      <editor
+            class="dk.itu.big_red.editors.simulation_spec.SimulationSpecEditor"
+            contributorClass="dk.itu.big_red.editors.simulation_spec.ActionBarContributor"
+            default="true"
+            extensions="bigraph-simulation-spec"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.SimulationSpecEditor"
+            name="Simulation Spec Editor">
+         <contentTypeBinding
+               contentTypeId="dk.itu.big_red.simulation_spec">
+         </contentTypeBinding>
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <category
+            id="dk.itu.big_red.export"
+            name="Big Red">
+      </category>
+      <wizard
+            category="dk.itu.big_red.export"
+            class="dk.itu.big_red.wizards.export.TextExportWizard"
+            icon="resources/icons/wizards/text.png"
+            id="Big Red.TikZExportWizard"
+            name="Export as text">
+         <description>
+            Export a Big Red document to a text format.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <category
+            id="dk.itu.big_red.import"
+            name="Big Red">
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="dk.itu.big_red.new"
+            name="Big Red">
+      </category>
+      <primaryWizard
+            id="dk.itu.big_red.NewBRSWizard">
+      </primaryWizard>
+      <wizard
+            category="dk.itu.big_red.new"
+            class="dk.itu.big_red.wizards.creation.NewBRSWizard"
+            finalPerspective="dk.itu.big_red.perspective"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.NewBRSWizard"
+            name="Bigraphical reactive system"
+            project="true">
+         <description>
+            Create a new bigraphical reactive system.
+         </description>
+      </wizard>
+      <wizard
+            category="dk.itu.big_red.new"
+            class="dk.itu.big_red.wizards.creation.NewAgentWizard"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.NewAgentWizard"
+            name="Agent"
+            project="false">
+         <description>
+            Create a new agent in an existing bigraphical reactive system.
+         </description>
+      </wizard>
+      <wizard
+            category="dk.itu.big_red.new"
+            class="dk.itu.big_red.wizards.creation.NewSignatureWizard"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.NewSignatureWizard"
+            name="Signature"
+            project="false">
+         <description>
+            Create a new signature in an existing bigraphical reactive system.
+         </description>
+      </wizard>
+      <wizard
+            category="dk.itu.big_red.new"
+            class="dk.itu.big_red.wizards.creation.NewRuleWizard"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.NewRuleWizard"
+            name="Reaction rule"
+            project="false">
+         <description>
+            Create a new rule in an existing bigraphical reactive system.
+         </description>
+      </wizard>
+      <wizard
+            category="dk.itu.big_red.new"
+            class="dk.itu.big_red.wizards.creation.NewSimulationSpecWizard"
+            icon="resources/icons/icon16.png"
+            id="dk.itu.big_red.NewSimulationSpecWizard"
+            name="Simulation spec"
+            project="false">
+         <description>
+            Create a new simulation spec in an existing bigraphical reactive system.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            file-extensions="bigraph, bigraph-agent"
+            id="dk.itu.big_red.bigraph"
+            name="Bigraph"
+            priority="normal">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            file-extensions="bigraph-rule"
+            id="dk.itu.big_red.rule"
+            name="Reaction rule"
+            priority="normal">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            file-extensions="bigraph-signature"
+            id="dk.itu.big_red.signature"
+            name="Signature"
+            priority="normal">
+      </content-type>
+      <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            file-extensions="bigraph-simulation-spec"
+            id="dk.itu.big_red.simulation_spec"
+            name="Simulation spec"
+            priority="normal">
+      </content-type>
+   </extension>
+   <extension
+         point="org.bigraph.model.wrapper.import">
+      <importer
+            class="org.bigraph.model.loaders.BigraphXMLLoader"
+            contentType="dk.itu.big_red.bigraph"
+            icon="resources/icons/icon16.png"
+            id="big_red.importer1"
+            name="Bigraph from XML">
+      </importer>
+      <importer
+            class="org.bigraph.model.loaders.SignatureXMLLoader"
+            contentType="dk.itu.big_red.signature"
+            icon="resources/icons/icon16.png"
+            id="big_red.importer2"
+            name="Signature from XML">
+      </importer>
+      <importer
+            class="org.bigraph.model.loaders.ReactionRuleXMLLoader"
+            contentType="dk.itu.big_red.rule"
+            icon="resources/icons/icon16.png"
+            id="big_red.importer3"
+            name="Reaction rule from XML">
+      </importer>
+      <importer
+            class="org.bigraph.model.loaders.SimulationSpecXMLLoader"
+            contentType="dk.itu.big_red.simulation_spec"
+            icon="resources/icons/icon16.png"
+            id="big_red.importer4"
+            name="Simulation spec from XML">
+      </importer>
+      <participant
+            class="dk.itu.big_red.model.load_save.RedXMLUndecorator"
+            id="RedUndecorator" />
+      <participant
+            class="dk.itu.big_red.model.load_save.AliasSupport$Undecorator"
+            id="AliasUndecorator" />
+      <participant
+            class="dk.itu.big_red.model.LinkStyleUtilities$Undecorator"
+            id="LinkStyleUndecorator">
+      </participant>
+      <participant
+            class="dk.itu.big_red.model.load_save.RedXMLEdits$LoadParticipant"
+            id="RedXMLEditLoader">
+         <enablement>
+            <instanceof
+                  value="org.bigraph.model.loaders.EditXMLLoader">
+            </instanceof>
+         </enablement>
+      </participant>
+      <participant
+            class="dk.itu.big_red.model.load_save.loaders.ChangeCompatibilityLoader"
+            id="ChangeCompatibilityLoader">
+         <enablement>
+            <instanceof
+                  value="org.bigraph.model.loaders.ReactionRuleXMLLoader">
+            </instanceof>
+         </enablement>
+      </participant>
+   </extension>
+   <extension
+         point="org.bigraph.model.wrapper.export">
+      <exporter
+            class="dk.itu.big_red.model.load_save.savers.BigraphTikZSaver"
+            exports="org.bigraph.model.Bigraph"
+            icon="resources/icons/wizards/vector.png"
+            id="big-red.exporter1"
+            name="TikZ image">
+         <description>
+            Export a bigraph as a TikZ image, suitable for use in papers or high-resolution printing.
+         </description>
+      </exporter>
+      <exporter
+            class="org.bigraph.model.savers.BigraphXMLSaver"
+            contentType="dk.itu.big_red.bigraph"
+            exports="org.bigraph.model.Bigraph"
+            icon="resources/icons/icon16.png"
+            id="big-red.exporter2"
+            name="Bigraph as XML">
+         <description>
+            Export a bigraph as a XML document, equivalent to that produced by File → Save.
+         </description>
+      </exporter>
+      <exporter
+            class="org.bigraph.model.savers.SignatureXMLSaver"
+            contentType="dk.itu.big_red.signature"
+            exports="org.bigraph.model.Signature"
+            icon="resources/icons/icon16.png"
+            id="big-red.exporter6"
+            name="Signature as XML">
+      </exporter>
+      <exporter
+            class="org.bigraph.model.savers.SimulationSpecXMLSaver"
+            contentType="dk.itu.big_red.simulation_spec"
+            exports="org.bigraph.model.SimulationSpec"
+            icon="resources/icons/icon16.png"
+            id="big-red.exporter5"
+            name="Simulation spec as XML">
+      </exporter>
+      <exporter
+            class="org.bigraph.model.savers.ReactionRuleXMLSaver"
+            contentType="dk.itu.big_red.rule"
+            exports="org.bigraph.model.ReactionRule"
+            icon="resources/icons/icon16.png"
+            id="big-red.exporter7"
+            name="Reaction rule as XML">
+      </exporter>
+      <exporter
+            class="dk.itu.big_red.model.load_save.savers.BigraphBPLToolSaver"
+            exports="org.bigraph.model.Bigraph"
+            id="big-red.exporter4"
+            name="BPL Tool">
+      </exporter>
+      <exporter
+            class="dk.itu.big_red.model.load_save.savers.BigraphTraverseSaver"
+            exports="org.bigraph.model.Bigraph"
+            icon="resources/icons/wizards/text.png"
+            id="big-red.exporter3"
+            name="Traverse">
+      </exporter>
+      <participant
+            class="dk.itu.big_red.model.load_save.RedXMLDecorator"
+            id="RedDecorator" />
+      <participant
+            class="dk.itu.big_red.model.load_save.AliasSupport$Decorator"
+            id="AliasDecorator" />
+      <participant
+            class="dk.itu.big_red.model.LinkStyleUtilities$Decorator"
+            id="LinkStyleDecorator">
+      </participant>
+      <participant
+            class="dk.itu.big_red.model.load_save.RedXMLEdits$SaveParticipant"
+            id="RedXMLEditSaver">
+         <enablement>
+            <instanceof
+                  value="org.bigraph.model.savers.EditXMLSaver">
+            </instanceof>
+         </enablement>
+      </participant>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="dk.itu.big_red.preferences.RedPreferencePage"
+            id="dk.itu.big_red.preferences.RedPreferencePage"
+            name="Big Red">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="dk.itu.big_red.preferences.RedPreferences">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            category="Big Red"
+            file="resources/doc/toc.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="resources/doc/tocconcepts.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="resources/doc/tocgettingstarted.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="resources/doc/tocreference.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="resources/doc/tocsamples.xml"
+            primary="false">
+      </toc>
+      <toc
+            file="resources/doc/toctasks.xml"
+            primary="false">
+      </toc>
+   </extension>
+   <extension
+         id="dk.itu.big_red.utilities.resources.builder.BigraphBuilder"
+         name="Big Red bigraph builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="dk.itu.big_red.builder.BigraphBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="dk.itu.big_red.utilities.resources.builder.BigraphNature"
+         name="Big Red bigraph nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="dk.itu.big_red.builder.BigraphNature">
+         </run>
+      </runtime>
+      <builder
+            id="dk.itu.big_red.utilities.resources.builder.BigraphBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ltk.core.refactoring.moveParticipants">
+      <moveParticipant
+            class="dk.itu.big_red.refactoring.MoveParticipant"
+            id="Big Red.moveParticipant2"
+            name="Bigraph nature move participant">
+         <enablement>
+            <with
+                  variable="affectedNatures">
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <equals
+                        value="dk.itu.big_red.utilities.resources.builder.BigraphNature">
+                  </equals>
+               </iterate>
+            </with>
+         </enablement>
+      </moveParticipant>
+   </extension>
+</plugin>

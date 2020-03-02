@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	rule.xsd, the IT University of Copenhagen's proposed XML Schema
+	for <rule> documents
+	Copyright © Alexander Faithfull 2010, 2011, 2012
+	
+	Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided that the copyright
+	notice and this notice are preserved. This file is offered as-is,
+	without any warranty.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:edit="http://bigraph.org/xmlns/2012/edit"
+            xmlns:rule="http://www.itu.dk/research/pls/xmlns/2011/rule"
+            xmlns:bigraph="http://www.itu.dk/research/pls/xmlns/2010/bigraph"
+            targetNamespace="http://www.itu.dk/research/pls/xmlns/2011/rule">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<h1>
+						<code>rule</code> schema
+					</h1>
+					<p>
+						This document is part of the <a href="http://www.itu.dk/">IT University of Copenhagen</a>'s
+						set of <a href="http://www.w3.org/XML/Schema">XML Schema</a>s for <i>bigraphs</i>: it can be
+						used to validate <code>&lt;rule&gt;</code> documents.
+					</p>
+					<p>
+						The <code>rule</code> XML namespace name is <code><a href="http://www.itu.dk/research/pls/xmlns/2011/rule">http://www.itu.dk/research/pls/xmlns/2011/rule</a></code>.
+					</p>
+					<p>
+						The key words <q>MUST</q>, <q>MUST NOT</q>, <q>REQUIRED</q>, <q>SHALL</q>, <q>SHALL NOT</q>,
+						<q>SHOULD</q>, <q>SHOULD NOT</q>, <q>RECOMMENDED</q>,  <q>MAY</q>, and <q>OPTIONAL</q> in
+						this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.
+					</p>
+					<h2>
+						Notes
+					</h2>
+					<p>
+						This schema incorporates by reference the <a href="bigraph.xsd"><code>bigraph</code> schema</a> and the <a href="edit.xsd"><code>edit</code> schema</a>.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import
+		namespace="http://www.itu.dk/research/pls/xmlns/2010/bigraph"
+		schemaLocation="bigraph.xsd" />
+
+	<xsd:import
+		namespace="http://bigraph.org/xmlns/2012/edit"
+		schemaLocation="edit.xsd" />
+
+	<xsd:group name="anyForeignElements">
+		<xsd:sequence>
+			<xsd:any namespace="##other"
+				processContents="lax"
+				minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="rule" />
+					<h2>
+						<code>rule</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>rule</code>s MUST either:
+					</p>
+					<ul>
+						<li>
+							be empty, or
+						</li>
+						<li>
+							contain
+							<ul>
+								<li>
+									either
+									<ul>
+										<li>
+											a <a href="#redex">redex</a>, or
+										</li>
+										<li>
+											a <a href="bigraph.xsd#bigraph">bigraph:bigraph</a>
+										</li>
+									</ul>
+									followed by
+								</li>
+								<li>
+									either
+									<ul>
+										<li>
+											a <a href="#changes">changes</a>, or
+										</li>
+										<li>
+											an <a href="edit.xsd#edit">edit:edit</a>
+										</li>
+									</ul>
+									followed by
+								</li>
+								<li>
+									zero or more elements from other namespaces.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<a id="rule_src" />
+						<li>
+							<code>src</code> (<code>string</code>): specifies a replacement reaction rule.
+							<br />
+							If this attribute is present, it SHOULD be a relative path to another <code>rule</code> document.
+							<br />
+							This attribute SHOULD be present on an empty <code>rule</code> element.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>rule</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#rule_src"><code>src</code> attribute</a> is provided primarily to support the embedding of <code>rule</code> elements into other documents.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="rule">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:choice>
+					<xsd:element ref="rule:redex" />
+					<xsd:element ref="bigraph:bigraph" />
+				</xsd:choice>
+				<xsd:choice>
+					<xsd:element ref="rule:changes" />
+					<xsd:element ref="edit:edit" />
+				</xsd:choice>
+				<xsd:group ref="rule:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="src" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="redex" />
+					<h2>
+						<code>redex</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>redex</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						No attributes are defined for <code>redex</code>s.
+					</p>
+					<p>
+						Attributes from other namespaces MAY be present on <code>redex</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						<strong>This element is deprecated</strong> in favour of the <a href="bigraph.xsd#bigraph">bigraph:bigraph</a> element.
+					</p>
+					<p>
+						This element should typically be treated as though it were the root of a <code>&lt;bigraph&gt;</code> document defining this rule's redex.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="redex">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="rule:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="changes" />
+					<h2>
+						<code>changes</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>changes</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						No attributes are defined for <code>changes</code>s.
+					</p>
+					<p>
+						Attributes from other namespaces MAY be present on <code>changes</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						<strong>This element is deprecated</strong> in favour of the <a href="edit.xsd#edit">edit:edit</a> element.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="changes">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="rule:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

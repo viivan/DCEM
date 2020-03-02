@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core bigraph.org model
+Bundle-SymbolicName: org.bigraph.model
+Bundle-Version: 1.0.0.1-DEVELOPMENT-qualifier
+Bundle-Vendor: bigraph.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.bigraph.model,
+ org.bigraph.model.assistants,
+ org.bigraph.model.changes,
+ org.bigraph.model.changes.descriptors,
+ org.bigraph.model.interfaces,
+ org.bigraph.model.loaders,
+ org.bigraph.model.names,
+ org.bigraph.model.names.policies,
+ org.bigraph.model.process,
+ org.bigraph.model.resources,
+ org.bigraph.model.savers,
+ org.bigraph.model.utilities,
+ org.bigraph.model.utilities.comparators

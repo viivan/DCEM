@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	signature.xsd, the IT University of Copenhagen's proposed XML Schema
+	for <signature> documents
+	Copyright © Alexander Faithfull 2010, 2011, 2012
+	
+	Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided that the copyright
+	notice and this notice are preserved. This file is offered as-is,
+	without any warranty.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:signature="http://www.itu.dk/research/pls/xmlns/2010/signature"
+            targetNamespace="http://www.itu.dk/research/pls/xmlns/2010/signature">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<h1>
+						<code>signature</code> schema
+					</h1>
+					<p>
+						This document is part of the <a href="http://www.itu.dk/">IT University of Copenhagen</a>'s
+						set of <a href="http://www.w3.org/XML/Schema">XML Schema</a>s for <i>bigraphs</i>: it can be
+						used to validate <code>&lt;signature&gt;</code> documents.
+					</p>
+					<p>
+						The <code>signature</code> XML namespace name is <code><a href="http://www.itu.dk/research/pls/xmlns/2010/signature">http://www.itu.dk/research/pls/xmlns/2010/signature</a></code>.
+					</p>
+					<p>
+						The key words <q>MUST</q>, <q>MUST NOT</q>, <q>REQUIRED</q>, <q>SHALL</q>, <q>SHALL NOT</q>,
+						<q>SHOULD</q>, <q>SHOULD NOT</q>, <q>RECOMMENDED</q>,  <q>MAY</q>, and <q>OPTIONAL</q> in
+						this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:group name="anyForeignElements">
+		<xsd:sequence>
+			<xsd:any namespace="##other"
+				processContents="lax"
+				minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="signature" />
+					<h2>
+						<code>signature</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>signature</code>s MUST either:
+					</p>
+					<ul>
+						<li>
+							be empty, or
+						</li>
+						<li>
+							contain
+							<ul>
+								<li>
+									zero or more <a href="#signature">signature</a>s, followed by
+								</li>
+								<li>
+									zero or more <a href="#control">control</a>s, followed by
+								</li>
+								<li>
+									zero or more elements from other namespaces.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<a id="signature_src" />
+						<li>
+							<code>src</code> (<code>string</code>): specifies a replacement signature.
+							<br />
+							If this attribute is present, it SHOULD be a relative path to another <code>signature</code> document.
+							<br />
+							This attribute SHOULD be present on an empty <code>signature</code> element.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>signature</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#signature_src"><code>src</code> attribute</a> is provided primarily to support the embedding of <code>signature</code> elements into other documents.
+					</p>
+					<h4>
+						Embedded signatures
+					</h4>
+					<p>
+						When a <a href="#signature">signature</a> (the <em>parent</em>) contains another <a href="#signature">signature</a> as a child element, the child is considered an <em>embedded signature</em> of the parent. (Embedded signatures may themselves contain other embedded signatures.)
+					</p>
+					<p>
+						When resolving <a href="#control">control</a> names:
+					</p>
+					<ul>
+						<li>
+							controls defined in the parent SHOULD be preferred to controls defined by any of its embedded signatures; and
+						</li>
+						<li>
+							controls defined in an embedded signature SHOULD be preferred to those defined in subsequent embedded signatures.
+						</li>
+					</ul>
+					<p>
+						By way of example, each <a href="#control">control</a> in the short document below is commented with the invocations of the function <code>resolve :: Signature -> Name -> Control</code> that would return it:
+					</p>
+<pre><code>&lt;signature
+		xmlns="http://www.itu.dk/research/pls/xmlns/2010/signature"
+		xmlns:marker="http://example.invalid/marker"
+		marker:id="sig"&gt;
+	&lt;signature marker:id="sig1"&gt; <i>&lt;!-- embedded signature of sig --&gt;</i>
+		&lt;signature marker:id="sig2"&gt; <i>&lt;!-- first embedded signature of sig1 --&gt;</i>
+			&lt;control name="cone" /&gt; <b>&lt;!-- resolve(sig, "cone"), resolve(sig1, "cone"), resolve(sig2, "cone") --&gt;</b>
+			&lt;control name="zone" /&gt; <b>&lt;!-- resolve(sig1, "zone"), resolve(sig2, "zone") --&gt;</b>
+		&lt;/signature&gt;
+		&lt;signature marker:id="sig3"&gt; <i>&lt;!-- second embedded signature of sig1 --&gt;</i>
+			&lt;control name="zone" /&gt; <b>&lt;!-- resolve(sig3, "zone") --&gt;</b>
+		&lt;/signature&gt;
+	&lt;/signature&gt;
+	&lt;control name="zone" /&gt; <b>&lt;!-- resolve(sig, "zone") --&gt;</b>
+&lt;/signature&gt;</code></pre>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="signature">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:element ref="signature:signature"
+					minOccurs="0"
+					maxOccurs="unbounded" />
+				<xsd:element ref="signature:control"
+					minOccurs="0"
+					maxOccurs="unbounded" />
+				<xsd:group ref="signature:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="src" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+
+		<xsd:unique name="ControlNames">
+			<xsd:selector xpath="signature:control" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+	</xsd:element>
+		
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="control" />
+					<h2>
+						<code>control</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>control</code>s MUST contain:
+					</p>
+					<ul>
+						<li>
+							zero or more <a href="#port">port</a>s, followed by
+						</li>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<a id="control_name" />
+						<li>
+							<code>name</code> (<code>string</code>): this control's name.
+							<br />
+							This attribute MUST be unique across all controls in this <a href="#signature">signature</a>.
+						</li>
+					</ul>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<a id="control_kind" />
+						<li>
+							<code>kind</code> (<code>string</code>): this control's kind.
+							<br />
+							This attribute, if present, MUST be one of: <code>atomic</code>, <code>active</code>, <code>passive</code>.
+						</li>
+						<a id="control_parameter"/>
+						<li>
+							<code>parameter</code> (<code>string</code>): this control's parameter type.
+							<br />
+							<strong>This attribute is deprecated.</strong>
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>control</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#control_parameter"><code>parameter</code> attribute</a> is a legacy attribute; applications MUST NOT produce it. Applications that understand parameterised controls SHOULD treat it as though it were a <code>type</code> attribute with the namespace <code>http://bigraph.org/xmlns/2012/bigraph-extension-param</code>.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="control">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="signature:port" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:group ref="signature:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:attribute name="kind">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="atomic" />
+						<xsd:enumeration value="active" />
+						<xsd:enumeration value="passive" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="parameter" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+		
+		<xsd:unique name="PortNames">
+			<xsd:selector xpath="signature:port" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<a id="port" />
+				<body>
+					<h2>
+						<code>port</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>port</code>s MUST contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="port_name" />
+							<code>name</code> (<code>string</code>): this port's identifier.
+							<br />
+							This attribute MUST be unique across all ports within a <a href="#control">control</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>port</code>s.
+					</p>
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="port">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="signature:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

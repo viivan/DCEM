@@ -1,0 +1,144 @@
+body {
+	background-color: #fee;
+}
+
+a, a:link, a:active, a:visited {
+	font-weight: 900;
+}
+
+a:link {
+	color: #f00;
+}
+
+a:active {
+	color: #000;
+}
+
+a:visited {
+	color: #800;
+}
+
+.note {
+	padding: 16px;
+	padding-left: 80px;
+	min-height: 48px;
+	
+	background-repeat: no-repeat;
+	background-position: top 16px left 16px;
+}
+
+/* Make childen of .notes behave properly */
+
+.note > * {
+	margin-bottom: 0;
+	margin-top: default;
+}
+
+.note > :first-child {
+	margin-top: 0;
+}
+
+.note.info {
+	border: 1px solid #f88;
+	background-color: #fdd;
+	background-image: url('../../icons/info.png');
+}
+
+.note.warning {
+	border: 1px solid #f33;
+	background-color: #f88;
+	background-image: url('../../icons/warning.png');
+}
+
+.note.bug {
+	border: 1px solid #c00;
+	background-color: #c55;
+	background-image: url('../../icons/bug.png');
+}
+
+.button {
+	background-color: #ccc;
+	
+	border: 0.1em outset silver;
+	
+	font-size: 0.8em;
+	
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+.menu-path {
+	font-style: italic;
+}
+
+div#header {
+	height: 70px;
+	
+	background-image: url('../../logo.png');
+	background-repeat: no-repeat;
+	background-position: top right;
+}
+
+div#trail {
+	text-align: center;
+}
+
+div#trail > .previous {
+	float: left;
+	text-align: left;
+}
+
+div#trail > .previous:before {
+	content: "« ";
+}
+
+div#trail > .next {
+	float: right;
+	text-align: right;
+}
+
+div#trail > .next:after {
+	content: " »";
+}
+
+div.figure {
+	max-width: 50%;
+	padding: 0.5em;
+	
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.figure > div.caption {
+	padding: 0.5em;
+	
+	text-align: center;
+	font-style: italic;
+}
+
+div.figure img {
+	display: block;
+	max-width: 100%;
+	
+	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img.border {
+	padding: 0.5em;
+	border: 1px solid gray;
+}
+
+img.border.tight {
+	padding: 0;
+}
+
+code.control-name {
+	font-weight: 900;
+}
+
+code .comment {
+	color: green;
+	font-style: italic;
+}

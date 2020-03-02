@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="250"
+   height="200"
+   id="svg2"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="logo.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview3882"
+     showgrid="false"
+     inkscape:zoom="1.18"
+     inkscape:cx="125"
+     inkscape:cy="100"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3163-7">
+      <stop
+         id="stop3165-7"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3167-5"
+         style="stop-color:#ff0000;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       cx="147.14287"
+       cy="68.14286"
+       r="36.42857"
+       fx="147.14287"
+       fy="68.14286"
+       id="radialGradient2866"
+       xlink:href="#linearGradient3163-7"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-96.450791,-28.947185)"
+     id="layer1">
+    <g
+       transform="matrix(1.4,0,0,1.4,-67.580321,-95.040441)"
+       id="g2397">
+      <g
+         transform="matrix(0.84689985,0,0,0.84689985,-133.74639,-52.541179)"
+         id="g2859">
+        <path
+           d="m 166.78572,83.5 a 36.42857,36.42857 0 1 1 -72.857143,0 36.42857,36.42857 0 1 1 72.857143,0 z"
+           transform="matrix(1.3507063,0,0,1.3566438,182.45535,108.24559)"
+           id="path2916"
+           style="fill:url(#radialGradient2866);fill-opacity:1;stroke:none" />
+        <path
+           d="m 355.95807,276.6295 c 0,-1.71429 0.834,-2.57146 2.502,-2.5715 1.76067,4e-5 2.64099,0.85721 2.64101,2.5715 l 0,34.68056 c -2e-5,1.76067 -0.85718,2.64101 -2.57151,2.64101 -1.71433,0 -2.5715,-0.88034 -2.5715,-2.64101 l 0,-34.68056"
+           id="path2938"
+           style="font-size:90px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;font-family:MgOpen Modata;-inkscape-font-specification:MgOpen Modata" />
+        <text
+           x="316.90768"
+           y="314.02539"
+           id="text3062"
+           xml:space="preserve"
+           style="font-size:69.50009918px;font-style:normal;font-weight:normal;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:MgOpen Modata;-inkscape-font-specification:MgOpen Modata"><tspan
+             x="316.90768"
+             y="314.02539"
+             id="tspan3064">b<tspan
+   id="tspan3066"
+   style="fill:none">i</tspan>gred</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

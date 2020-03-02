@@ -1,0 +1,143 @@
+The mutable model
+=================
+
+Although Big Red's implementation of the bigraphical model is mutable, its
+objects expose only getters, not setters:
+
+        Bigraph b;
+        Root r1, r2;
+        Node n;
+        /* ... b contains r1 and r2, while r1 contains n... */
+        assert(n.getParent() == r1); /* allowed */
+        n.setParent(r2); /* not allowed */
+
+Instead, the model introduces a layer of indirection: objects that encapsulate
+the desired modifications are submitted to a /validator/, which makes sure that
+the modification request makes sense, before being sent on to an /executor/,
+which actually modifies the model.
+
+Why?
+----
+
+* Undo and redo support for free
+
+  Changes track enough information to reverse themselves, which makes it easy
+  to apply and unapply them.
+
+* Protects against both users' and programmers' mistakes
+
+  As changes are the only way to modify the model, bugs in higher-level code
+  are treated like user mistakes -- anything that leaves the model in an
+  inconsistent state will be rejected.
+
+* Temporary inconsistencies don't matter
+
+  Some changes are validated only at the end of the validation process. This
+  allows objects to be temporarily put into undesirable states without any
+  consequences -- as long as those states are eventually resolved, the
+  validator won't complain.
+
+* Extensibility
+
+  Plugins can contribute new steps to executors and validators, adding new
+  kinds of modification -- or making existing checks more demanding!
+
+How?
+----
+
+Modifying a Big Red model object is a three-step process:
+
+	1. create objects that encapsulate the desired changes;
+	2. validate them; and finally
+	3. execute them.
+
+(In practice, the last two steps can be grouped together -- changes are always
+validated before they're executed.)
+
+Simulation
+----------
+
+Validating and applying a single change is straightforward, but sequences of
+changes are a bit trickier. Consider the following example:
+
+	Change(rename root "0" to "1")
+	Change(rename root "2" to "1")
+
+In isolation, both changes are valid -- but applying either change makes it
+impossible to apply the other (as that would cause a namespace collision). How
+can this be tracked?
+
+The simplest option would be to make a deep copy of the bigraph and to attempt
+to modify that directly, leaving the original unchanged in the event of an
+error. However, this causes serious performance problems -- particularly in the
+Eclipse context, where the UI frequently speculatively creates and validates
+changes. (Imagine making a new deep copy of a complex bigraph for every pixel
+traversed as part of a drag operation...)
+
+Instead, the model provides a class called the "property scratchpad", which
+is used to temporarily store changes to individual property values. After
+simulating the first change in a property scratchpad, for example, it might
+contain the associations
+
+	property "name" of (Root@10c) has value "1"
+	property "1" of ((Bigraph@2e64)'s root namespace) has value (Root@10c)
+
+These associations allow the second change to be rejected -- although the
+underlying namespace has not been changed, the namespace can consult the
+property scratchpad and sees that it contains incompatible changes.
+
+(All of Big Red's model objects, and many of their associated helpers, expose
+two accessors for each field -- one which retrieves the value directly and
+another which first attempts to find it in a property scratchpad.)
+
+Validators and executors
+------------------------
+
+Big Red's change execution system is flexible and extensible. In order to add
+support for new kinds of change, or to put further constraints on existing
+changes, developers must contribute "steps" to "managers".
+
+Steps are simple, stateless objects that can only do three things: ignore,
+accept, or reject a single change. Step validators accept a change by
+successfully validating it, and step executors do so by executing it. If a step
+doesn't implement any behaviour for a change, then it must ignore it. (An
+object which is both a step validator and a step executor is also called a
+"handler".)
+
+Managers are responsible for aggregating steps together into a complete,
+coherent process: when asked to perform validation or execution, they decompose
+(potentially nested) change groups into a sequence of single changes, and
+attempt to find one or more steps to accept each change. (A change is rejected
+by the manager if either one step rejected it or all steps ignored it.)
+
+Unlike step executors (which directly modify actual objects), step validators
+need to be able to propagate their temporary modifications to their successors.
+To this end, each step validator is also given a reference to the object
+encapsulating the validation process, which provides a property scratchpad and
+a callback mechanism (to allow parts of the validation process to be delayed
+until the end).
+
+Executor managers are also validator managers (the ExecutorManager class is a
+subclass of ValidatorManager), and they will always perform validation before
+attempting to execute a change. If an executor manager has no step executor
+that can accept a change, then that change must not pass validation.
+
+Although executor managers can be instantiated, there's also a static shared
+instance; all of Big Red's handlers are installed into this shared manager, and
+all of Big Red's validation and execution goes through this object. (Validator
+managers are also step validators, so they can be included in other validation
+processes; similarly, executor managers have a mechanism which allows them to
+act as handlers.)
+
+Extensions
+----------
+
+As validators and (particularly) executors may contain privileged code, it's
+not normally possible to instantiate them -- they're usually private or
+package-private classes which are instantiated statically before being
+contributed to the static executor manager.
+
+Static initialisation works for this (as long as the initialisation order of
+classes is carefully managed), but there is another, more Eclipse-friendly
+option: the model wrapper plugin exposes an extension point for contributing
+new steps to the shared executor manager.

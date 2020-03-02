@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	bigraph.xsd, the IT University of Copenhagen's proposed XML Schema for
+	<bigraph> documents
+	Copyright © Alexander Faithfull 2010
+	
+	Copying and distribution of this file, with or without modification,
+	are permitted in any medium without royalty provided that the copyright
+	notice and this notice are preserved. This file is offered as-is,
+	without any warranty.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:bigraph="http://www.itu.dk/research/pls/xmlns/2010/bigraph"
+            xmlns:signature="http://www.itu.dk/research/pls/xmlns/2010/signature"
+            targetNamespace="http://www.itu.dk/research/pls/xmlns/2010/bigraph">
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<h1>
+						<code>bigraph</code> schema
+					</h1>
+					<p>
+						This document is part of the <a href="http://www.itu.dk/">IT University of Copenhagen</a>'s
+						set of <a href="http://www.w3.org/XML/Schema">XML Schema</a>s for <i>bigraphs</i>: it can be
+						used to validate <code>&lt;bigraph&gt;</code> documents.
+					</p>
+					<p>
+						The <code>bigraph</code> XML namespace name is <code><a href="http://www.itu.dk/research/pls/xmlns/2010/bigraph">http://www.itu.dk/research/pls/xmlns/2010/bigraph</a></code>.
+					</p>
+					<p>
+						The key words <q>MUST</q>, <q>MUST NOT</q>, <q>REQUIRED</q>, <q>SHALL</q>, <q>SHALL NOT</q>,
+						<q>SHOULD</q>, <q>SHOULD NOT</q>, <q>RECOMMENDED</q>,  <q>MAY</q>, and <q>OPTIONAL</q> in
+						this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.
+					</p>
+					<h2>
+						Notes
+					</h2>
+					<p>
+						This schema incorporates by reference the <a href="signature.xsd"><code>signature</code> schema</a>.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:import
+		namespace="http://www.itu.dk/research/pls/xmlns/2010/signature"
+		schemaLocation="signature.xsd" />
+
+	<xsd:group name="anyForeignElements">
+		<xsd:sequence>
+			<xsd:any namespace="##other"
+				processContents="lax"
+				minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:group>
+
+	<xsd:attributeGroup name="pointAttributes">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="link" type="xsd:string"/>
+	</xsd:attributeGroup>
+
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="bigraph" />
+					<h2>
+						<code>bigraph</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>bigraph</code>s MUST either:
+					</p>
+					<ul>
+						<li>
+							be empty, or
+						</li>
+						<li>
+							contain
+							<ul>
+								<li>
+									either
+									<ul>
+										<li>
+											a <a href="#signature">signature</a>, or
+										</li>
+										<li>
+											a <a href="signature.xsd#signature">signature:signature</a>
+										</li>
+									</ul>
+									followed by
+								</li>
+								<li>
+									zero or more <a href="#edge">edge</a>s, followed by
+								</li>
+								<li>
+									zero or more <a href="#outername">outername</a>s, followed by
+								</li>
+								<li>
+									zero or more <a href="#root">root</a>s, followed by
+								</li>
+								<li>
+									zero or more <a href="#innername">innername</a>s, followed by
+								</li>
+								<li>
+									zero or more elements from other namespaces.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<a id="bigraph_src" />
+						<li>
+							<code>src</code> (<code>string</code>): specifies a replacement bigraph.
+							<br />
+							If this attribute is present, it SHOULD be a relative path to another <code>bigraph</code> document.
+							<br />
+							This attribute SHOULD be present on an empty <code>bigraph</code> element.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>bigraph</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#bigraph_src"><code>src</code> attribute</a> is provided primarily to support the embedding of <code>bigraph</code> elements into other documents.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="bigraph">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:choice>
+					<xsd:element ref="bigraph:signature" />
+					<xsd:element ref="signature:signature" />
+				</xsd:choice>
+				<xsd:element ref="bigraph:edge" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:outername" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:root" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:innername" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="src" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+
+		<xsd:unique name="RootNames">
+			<xsd:selector xpath="bigraph:root" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+
+		<xsd:unique name="NodeNames">
+			<xsd:selector xpath=".//bigraph:node" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+		
+		<xsd:unique name="SiteNames">
+			<xsd:selector xpath=".//bigraph:site" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+		
+		<xsd:unique name="EdgeAndOuterNameNames">
+			<xsd:selector xpath="bigraph:edge|bigraph:outername" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+		
+		<xsd:unique name="InnerNameNames">
+			<xsd:selector xpath="bigraph:innername" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+		
+		<xsd:keyref name="PointsConnectedToLinks" refer="bigraph:EdgeAndOuterNameNames">
+			<xsd:selector xpath=".//bigraph:port|.//bigraph:innername" />
+			<xsd:field xpath="@link" />
+		</xsd:keyref>
+	</xsd:element>
+		
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="signature" />
+					<h2>
+						<code>signature</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>signature</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<a id="signature_src" />
+						<li>
+							<code>src</code> (<code>string</code>): specifies the path to this bigraph's <i>signature</i>.
+							<br />
+							If this attribute is present, it SHOULD be a path, relative to the directory that contains this bigraph, to a <code>&lt;signature&gt;</code> document.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>signature</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						<strong>This element is deprecated</strong> in favour of the <a href="signature.xsd#signature">signature:signature</a> element.
+					</p>
+					<p>
+						If the <code>src</code> attribute is not present, then this element should typically be treated as though it were the root of a <code>&lt;signature&gt;</code> document defining this bigraph's signature.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="signature">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="src" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="root" />
+					<h2>
+						<code>root</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>root</code>s MUST contain:
+					</p>
+					<ul>
+						<li>
+							zero or more <a href="#node">node</a>s, followed by
+						</li>
+						<li>
+							zero or more <a href="#site">site</a>s, followed by
+						</li>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<a id="root_name" />
+						<li>
+							<code>name</code> (<code>string</code>): this root's identifier.
+							<br />
+							This attribute MUST be unique across all roots in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>root</code>s.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="root">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="bigraph:node" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:site" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<a id="node" />
+				<body>
+					<h2>
+						<code>node</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>node</code>s MUST contain:
+					</p>
+					<ul>
+						<li>
+							zero or more <a href="#port">port</a>s, followed by
+						</li>
+						<li>
+							zero or more <a href="#node">node</a>s, followed by
+						</li>
+						<li>
+							zero or more <a href="#site">site</a>s, followed by
+						</li>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="node_name" />
+							<code>name</code> (<code>string</code>): this node's identifier.
+							<br />
+							This attribute MUST be unique across all nodes in this <a href="#bigraph">bigraph</a>.
+						</li>
+						<li>
+							<a id="control_name" />
+							<code>control</code> (<code>string</code>): this node's control.
+							<br />
+							This attribute MUST be the <code>name</code> of a <a href="#">control</a> defined in the <a href="#bigraph_signature">signature</a>.
+						</li>
+					</ul>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<li>
+							<a id="node_parameter" />
+							<code>parameter</code> (<code>string</code>): this node's parameter value.
+							<br />
+							<strong>This attribute is deprecated.</strong>
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>node</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#node_parameter"><code>parameter</code> attribute</a> is a legacy attribute; applications MUST NOT produce it. Applications that understand parameterised controls SHOULD treat it as though it were a <code>value</code> attribute with the namespace <code>http://bigraph.org/xmlns/2012/bigraph-extension-param</code>.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="node">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="bigraph:port" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:node" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element ref="bigraph:site" minOccurs="0" maxOccurs="unbounded" />
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:attribute name="control" type="xsd:string" use="required" />
+			<xsd:attribute name="parameter" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+		
+		<xsd:unique name="PortNames">
+			<xsd:selector xpath="bigraph:port" />
+			<xsd:field xpath="@name" />
+		</xsd:unique>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="site" />
+					<h2>
+						<code>site</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>site</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="site_name" />
+							<code>name</code> (<code>string</code>): this site's identifier.
+							<br />
+							This attribute MUST be unique across all sites in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<li>
+							<a id="site_alias" />
+							<code>alias</code> (<code>string</code>): this site's alias.
+							<br />
+							<strong>This attribute is deprecated.</strong>
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>site</code>s.
+					</p>
+					<h3>
+						Notes
+					</h3>
+					<p>
+						The <a href="#site_alias"><code>alias</code> attribute</a> is a legacy attribute, and appears in this schema as the result of a limitation in old versions of Big Red; applications are not required to take any action upon encountering it.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="site">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:attribute name="alias" type="xsd:string" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="port" />
+					<h2>
+						<code>port</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>port</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="port_name" />
+							<code>name</code> (<code>string</code>): this port's identifier.
+							<br />
+							This attribute MUST be unique across all ports within a <a href="#node">node</a>.
+						</li>
+					</ul>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<li>
+							<a id="port_link" />
+							<code>link</code> (<code>string</code>): the identifier of the <a href="#edge">edge</a> or <a href="#outername">outername</a> to which this port is connected.
+							<br />
+							If this attribute is present, it MUST be the <code>name</code> of an <a href="#edge_name">edge</a> or <a href="#outername_name">outername</a> in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>port</code>s.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="port">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attributeGroup ref="bigraph:pointAttributes" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="innername" />
+					<h2>
+						<code>innername</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>innername</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="innername_name" />
+							<code>name</code> (<code>string</code>): this innername's identifier.
+							<br />
+							This attribute MUST be unique across all innernames in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						The following attributes MAY be present:
+					</p>
+					<ul>
+						<li>
+							<a id="innername_link" />
+							<code>link</code> (<code>string</code>): the identifier of the <a href="#edge">edge</a> or <a href="#outername">outername</a> to which this innername is connected.
+							<br />
+							If this attribute is present, it MUST be the <code>name</code> of an <a href="#edge_name">edge</a> or <a href="#outername_name">outername</a> in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>innername</code>s.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="innername">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attributeGroup ref="bigraph:pointAttributes" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="edge" />
+					<h2>
+						<code>edge</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>edges</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="edge_name" />
+							<code>name</code> (<code>string</code>): this edge's identifier.
+							<br />
+							This attribute MUST be unique across all edges <i>and</i> <a href="#outername">outername</a>s in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>innername</code>s.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="edge">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			<html xmlns="http://www.w3.org/1999/xhtml">
+				<body>
+					<a id="outername" />
+					<h2>
+						<code>outername</code>
+					</h2>
+					<h3>
+						Children
+					</h3>
+					<p>
+						<code>outername</code>s MAY contain:
+					</p>
+					<ul>
+						<li>
+							zero or more elements from other namespaces.
+						</li>
+					</ul>
+					<h3>
+						Attributes
+					</h3>
+					<p>
+						The following attributes MUST be present:
+					</p>
+					<ul>
+						<li>
+							<a id="outername_name" />
+							<code>name</code> (<code>string</code>): this outername's identifier.
+							<br />
+							This attribute MUST be unique across all outernames <i>and</i> <a href="#edge">edge</a>s in this <a href="#bigraph">bigraph</a>.
+						</li>
+					</ul>
+					<p>
+						Additionally, attributes from other namespaces MAY be present on <code>outername</code>s.
+					</p>
+					<hr />
+				</body>
+			</html>
+		</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="outername">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:group ref="bigraph:anyForeignElements" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+			<xsd:anyAttribute namespace="##other"
+				processContents="lax" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

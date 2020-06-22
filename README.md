@@ -12,6 +12,9 @@ Derivation process is based on the [Big Red](http://bigraph.org/papers/gcm2012/)
 
 note: **Must Use Firefox browser**
 
+Entrance page：``` localhost:8080/index.html ```
+user: ```admin``` password: ```123456```
+
 ## Advantages
 - Support Multiple Platforms
 - Simplify Application Production
@@ -37,7 +40,6 @@ No need to download grade and tomcat, run jar package directly!
 
 ```shell script
 cd bigraph_system
-
 ./gradlew build -x test
 ```
 
@@ -57,9 +59,7 @@ In order to change the default port, you just need to modify the server.port att
 ## Development environment deployment
 ```shell script
 cd bigraph_system
-
-./gradlew build -x test
-
+./gradlew bootJar
 java -jar ./build/libs/bigraph-0.0.1-SNAPSHOT.jar 
 ```
 
@@ -69,9 +69,11 @@ If you need to modify it, configure the logback-prod.xml file.
 
 ```shell script
 cd bigraph_system
-
-./gradlew build -x test
-
+./gradlew bootJar
 java -jar ./build/libs/bigraph-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
  
 ```
+
+## Thanks
+Thanks to JiangZhaoxin, ZhouHuan, ZhaoWei for his research contribution of this project
+
